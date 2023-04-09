@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SimController;
 use App\Http\Controllers\SitesController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,6 @@ Route::put('/site/{id}',[SitesController::class, 'update']);
 Route::delete('/deletesite/{id}',[SitesController::class, 'destroy'])
 ->middleware('auth')
 ->name('deletesite');
+
+
+Route::get('/sims',[SimController::class,'index'])->name('sims');

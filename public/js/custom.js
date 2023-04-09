@@ -96,7 +96,8 @@ $(document).ready(function(){
 
 
 function showPosition(position) {
- 
+    console.log(position.coords.latitude + 
+        " " + position.coords.longitude);
   $('#coodinates').val(position.coords.latitude + 
   " " + position.coords.longitude)
 }

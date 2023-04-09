@@ -15,9 +15,9 @@ class SitesController extends Controller
      */
     public function index()
     {
-        $users = Auth::user();
+       
         $sites = Site::paginate(10);
-        Return view('sites.sites',['user'=>$users, 'sites'=>$sites]);
+        Return view('sites.sites',[ 'sites'=>$sites]);
     }
 
     /**

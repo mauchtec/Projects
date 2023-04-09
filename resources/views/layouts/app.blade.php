@@ -198,7 +198,7 @@ body {
 </style>
 </head>
 <body>
-	<p>Click this paragraph.</p>
+	
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<a href="#" class="navbar-brand">Brand<b>Name</b></a>  		
 		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -207,8 +207,8 @@ body {
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 			<div class="navbar-nav">
-				<a href="#" class="nav-item nav-link">Home</a>
-				<a href="#" class="nav-item nav-link">About</a>			
+				<a href="/" class="nav-item nav-link">Home</a>
+				<a href="{{route('sites')}}" class="nav-item nav-link">Sites</a>			
 				<div class="nav-item dropdown">
 					<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
 					<div class="dropdown-menu">					
@@ -218,7 +218,7 @@ body {
 						<a href="#" class="dropdown-item">Digital Marketing</a>
 					</div>
 				</div>
-				<a href="#" class="nav-item nav-link active">Portfolio</a>
+				<a href="{{route('sims')}}" class="nav-item nav-link active">Portfolio</a>
 				<a href="#" class="nav-item nav-link">Blog</a>
 				<a href="#" class="nav-item nav-link">Contact</a>
 			</div>
@@ -232,7 +232,7 @@ body {
 				
 		</div>
 		@auth
-				<a href="#" class="nav-item nav-link active">{{$user->name}}</a>
+				<a href="#" class="nav-item nav-link active">{{Auth::user()->name}}</a>
 				
 				<a href="#" id="logout-btn" class="nav-item nav-link ">logout</a>
 
@@ -240,7 +240,7 @@ body {
 				@endauth
 				@guest
 				
-				 <a href="{{route('login')}} ">login1</a>
+				 
 					<a href="{{route('login')}} "  class="nav-item nav-link">Login</a>
 					<a href="{{route('register')}} " class="nav-item nav-link">Register</a>
 				@endguest

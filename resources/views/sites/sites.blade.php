@@ -348,7 +348,7 @@ table.table .avatar {
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
+						<input type="hidden" name="user_id" id="user_id" value="{{Auth::user()->name}}">
 						<input type="text"  class="form-control" name="sitename" id="sitename" required placeholder="Enter site name">
 						
 					</div>
@@ -474,7 +474,7 @@ table.table .avatar {
 				</div>
 				<div class="modal-body">					
 					<p>Are you sure you want to delete these Records?</p>
-					<input type="hidden" name="siteid" id="siteid" value="{{$user->id}}" data-id="{{ $user->id }}">
+					<input type="hidden" name="siteid" id="siteid" value="{{Auth::user()->name}}" data-id="{{ Auth::user()->name}}">
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">
