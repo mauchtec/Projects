@@ -75,207 +75,104 @@
 	float: left;
 	margin-top: 2px;
 }
-table.table tr th, table.table tr td {
-	border-color: #e9e9e9;
-	padding: 12px 15px;
-	vertical-align: middle;
-}
-table.table tr th:first-child {
-	width: 60px;
-}
-table.table tr th:last-child {
-	width: 100px;
-}
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-table.table th i {
-	font-size: 13px;
-	margin: 0 5px;
-	cursor: pointer;
-}	
-table.table td:last-child i {
-	opacity: 0.9;
-	font-size: 22px;
-	margin: 0 5px;
-}
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-table.table td a:hover {
-	color: #2196F3;
-}
-table.table td a.edit {
-	color: #FFC107;
-}
-table.table td a.delete {
-	color: #F44336;
-}
-table.table td i {
-	font-size: 19px;
-}
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-.pagination {
-	float: right;
-	margin: 0 0 5px;
-}
-.pagination li a {
-	border: none;
-	font-size: 13px;
-	min-width: 30px;
-	min-height: 30px;
-	color: #999;
-	margin: 0 2px;
-	line-height: 30px;
-	border-radius: 2px !important;
-	text-align: center;
-	padding: 0 6px;
-}
-.pagination li a:hover {
-	color: #666;
-}	
-.pagination li.active a, .pagination li.active a.page-link {
-	background: #03A9F4;
-}
-.pagination li.active a:hover {        
-	background: #0397d6;
-}
-.pagination li.disabled i {
-	color: #ccc;
-}
-.pagination li i {
-	font-size: 16px;
-	padding-top: 6px
-}
-.hint-text {
-	float: left;
-	margin-top: 10px;
-	font-size: 13px;
-}    
-/* Custom checkbox */
-.custom-checkbox {
-	position: relative;
-}
-.custom-checkbox input[type="checkbox"] {    
-	opacity: 0;
-	position: absolute;
-	margin: 5px 0 0 3px;
-	z-index: 9;
-}
-.custom-checkbox label:before{
-	width: 18px;
-	height: 18px;
-}
-.custom-checkbox label:before {
-	content: '';
-	margin-right: 10px;
-	display: inline-block;
-	vertical-align: text-top;
-	background: white;
-	border: 1px solid #bbb;
-	border-radius: 2px;
-	box-sizing: border-box;
-	z-index: 2;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-	content: '';
-	position: absolute;
-	left: 6px;
-	top: 3px;
-	width: 6px;
-	height: 11px;
-	border: solid #000;
-	border-width: 0 3px 3px 0;
-	transform: inherit;
-	z-index: 3;
-	transform: rotateZ(45deg);
-}
-.custom-checkbox input[type="checkbox"]:checked + label:before {
-	border-color: #03A9F4;
-	background: #03A9F4;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-	border-color: #fff;
-}
-.custom-checkbox input[type="checkbox"]:disabled + label:before {
-	color: #b8b8b8;
-	cursor: auto;
-	box-shadow: none;
-	background: #ddd;
-}
-/* Modal styles */
-.modal .modal-dialog {
-	max-width: 400px;
-}
-.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-	padding: 20px 30px;
-}
-.modal .modal-content {
-	border-radius: 3px;
-	font-size: 14px;
-}
-.modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
-}
-.modal .modal-title {
-	display: inline-block;
-}
-.modal .form-control {
-	border-radius: 2px;
-	box-shadow: none;
-	border-color: #dddddd;
-}
-.modal textarea.form-control {
-	resize: vertical;
-}
-.modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-}	
-.modal form label {
-	font-weight: normal;
-}
-
-
-
-
-.search-box {
-    position: relative;        
-    float: right;
-	padding-left: 5px;
-}
-.search-box input {
-    height: 34px;
-    border-radius: 20px;
-    padding-left: 35px;
-    border-color: #ddd;
-    box-shadow: none;
-}
-.search-box input:focus {
-    border-color: #3FBAE4;
-}
-.search-box i {
-    color: #a0a5b1;
-    position: absolute;
-    font-size: 19px;
-    top: 8px;
-    left: 10px;
-	padding-left: 5px;
-}
-</style>
-
+	.search-box {
+		position: relative;        
+		float: right;
+	}
+	.search-box input {
+		height: 34px;
+		border-radius: 20px;
+		padding-left: 35px;
+		border-color: #ddd;
+		box-shadow: none;
+	}
+	.search-box input:focus {
+		border-color: #3FBAE4;
+	}
+	.search-box i {
+		color: #a0a5b1;
+		position: absolute;
+		font-size: 19px;
+		top: 8px;
+		left: 10px;
+	}
+	table.table tr th, table.table tr td {
+		border-color: #e9e9e9;
+	}
+	table.table-striped tbody tr:nth-of-type(odd) {
+		background-color: #fcfcfc;
+	}
+	table.table-striped.table-hover tbody tr:hover {
+		background: #f5f5f5;
+	}
+	table.table th i {
+		font-size: 13px;
+		margin: 0 5px;
+		cursor: pointer;
+	}
+	table.table td:last-child {
+		width: 130px;
+	}
+	table.table td a {
+		color: #a0a5b1;
+		display: inline-block;
+		margin: 0 5px;
+	}
+	table.table td a.view {
+		color: #03A9F4;
+	}
+	table.table td a.edit {
+		color: #FFC107;
+	}
+	table.table td a.delete {
+		color: #E34724;
+	}
+	table.table td i {
+		font-size: 19px;
+	}    
+	.pagination {
+		float: right;
+		margin: 0 0 5px;
+	}
+	.pagination li a {
+		border: none;
+		font-size: 95%;
+		width: 30px;
+		height: 30px;
+		color: #999;
+		margin: 0 2px;
+		line-height: 30px;
+		border-radius: 30px !important;
+		text-align: center;
+		padding: 0;
+	}
+	.pagination li a:hover {
+		color: #666;
+	}	
+	.pagination li.active a {
+		background: #03A9F4;
+	}
+	.pagination li.active a:hover {        
+		background: #0397d6;
+	}
+	.pagination li.disabled i {
+		color: #ccc;
+	}
+	.pagination li i {
+		font-size: 16px;
+		padding-top: 6px
+	}
+	.hint-text {
+		float: left;
+		margin-top: 6px;
+		font-size: 95%;
+	}    
+	</style>
+@if(session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+@endif
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
@@ -285,110 +182,61 @@ table.table .avatar {
 						<h2>Manage <b>Sims</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+						<a href="#addSimcard" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Simcard</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<div class="search-box">
+                            <i class="material-icons">&#xE8B6;</i>
+                            <input type="text" class="form-control" placeholder="Search&hellip;">
+                        </div>
 					</div>
+					
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Address</th>
-						<th>Phone</th>
+
+
+			
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+						
+						<th>Serial <i class="fa fa-sort"></i></th>
+						<th>Site-Name <i class="fa fa-sort"></i></th>
+						<th>Purpose <i class="fa fa-sort"></i></th>
+						<th>Status <i class="fa fa-sort"></i></th>						
 						<th>Actions</th>
 					</tr>
-				</thead>
-				<tbody>
+                </thead>
+                <tbody>
+					@foreach($images as $image)
 					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-						<td>Fran Wilson</td>
-						<td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-						<td>(204) 619-5731</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>					
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-						<td>Martin Blank</td>
-						<td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-						<td>(480) 631-2097</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr> 
-				</tbody>
-			</table>
+						<td>{{$image->Serial}}</td>
+						@if ($image->sitename)
+						
+						<td>{{$image->sitename}}</td>
+						@else
+						<td>New Sim</td>
+						@endif
+						<td class="bg-info text-white">{{$image->Purpose}}</td>
+						@if ($image->active)
+						<td class="bg-success text-white">used on site</td>
+						@else
+						<td class="bg-danger text-white">in-stock</td>
+						@endif
+                        <td>
+                            <a href="#"  class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a href="#" data-toggle="modal" data-target="#EditSimcard" data-id="{{$image->id}}" class="editsim-btn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="#" data-toggle="modal" data-target="#delete"   data-id="#" class="edit-btn"><i class="material-icons" style='color:red'>&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                   
+                </tbody>
+                   
+            </table>
+
+
+
+			
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
@@ -404,35 +252,48 @@ table.table .avatar {
 		</div>
 	</div>        
 </div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+
+
+
+
+
+
+<!-- Add new sim Modal HTML -->
+<div id="addSimcard" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form method="post" action="{{'/sims'}}">
+
+				@csrf
 				<div class="modal-header">						
 					<h4 class="modal-title text-dark">Add Sim</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"  onClick="closecam();">&times;</button>
 				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
+				<div class="modal-body">	
+					
+					<div class=" form-group row" style=".row {
+						display: flex;
+					  }">
+						<div class="col-md-6 col-sm-6">
+							<div id="my_camera" onClick="take_snapshot()"  ></div>
+							
+							
+							<input type="hidden" name="image" class="image-tag" style="width:100%" >
+						</div>
+						<div class="col-md-6 col-sm-6" id="results">
+							
+						</div>
+						<input type="button" id="startcam" value="Access Camera" onClick="setup(); $(this).hide().next().show();">
+						
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
+						<label>Sim Serial</label>
+						<input type="number" name="serial" id="serial" class="form-control" required>
 					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
+								
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="button" class="btn btn-default" data-dismiss="modal" onClick="closecam();" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add">
 				</div>
 			</form>
@@ -440,33 +301,70 @@ table.table .avatar {
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="EditSimcard" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form action="" method="put" id="updatesim" class="updatesim">
+				<input type="hidden" name="id" id="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Employee</h4>
+					<h4 class="modal-title text-dark ">Edit Simcard</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
+				<div class="modal-body text-dark">					
+					<div class="form-group" id="image-container">
+						<input type="image" id="sim"  name="sim" src="" alt="">
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
+						<label>Serial Number</label>
+						<input type="number" id="simserial" name="simserial" class="form-control" >
 					</div>
 					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
+						<div class="row">
+							<div class="col">
+									<select name="purpose" id="purpose" class="form-select form-control" onchange="addscannernumber()" required>
+									<option selected >Select Purpose</option>
+									<option value="dongle">Dongle</option>
+									<option value="signal">Signal</option>
+									<option value="gatemagic">Gatemagic</option>
+									<option value="scanner">Scanner</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+							<div class="col">
+								<div id="myinst" style="display:none;">
+									<input type="number" name="scannernum" id="scannernum" class="form-control" placeholder="Scanner Number" >
+								</div>
+							</div>
+						</div>
+						
 					</div>
 					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
+						<div class="row">
+							<div class="col form-check form-switch">
+								
+									<input type="checkbox" id="mySwitch" name="status" value="1" checked required>
+									<label  for="mySwitch">Activate</label>
+								 
+								
+							</div>
+							<div class="col">
+								
+									
+								
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="form-group">
+						<select  name="sitenames" id="sitenames" class="form-select form-control" >
+							<option selected >Choose a site</option>
+						</select>
+						
+					</div>
+									
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" >
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-info" value="Save">
 				</div>
@@ -495,4 +393,58 @@ table.table .avatar {
 		</div>
 	</div>
 </div>
+
+<script language="JavaScript">
+function addscannernumber(){
+
+
+	var v=document.getElementById("purpose");
+          var v1=document.getElementById("myinst");
+	console.log(v.value);
+		  if(v.value=="scanner")
+          {
+             v1.style.display='block';
+          }
+          else
+          {
+             v1.style.display='none';
+          }
+        
+}
+	Webcam.set({
+	  		width: 150,
+			height: 150,
+			dest_width: 150,
+			dest_height: 150,
+			image_format: 'jpeg',
+			jpeg_quality: 95,
+			force_flash: false,
+			flip_horiz: false,
+			fps: 45,
+		constraints: {
+	   facingMode: 'environment'
+	 }
+		});
+		function closecam(){
+			Webcam.reset();
+			document.getElementById("startcam").style.display="block";
+		}
+		function setup() {
+			Webcam.reset();
+			Webcam.attach( '#my_camera' );
+		}
+		//Webcam.attach( '#my_camera' );----> this was to start the camera on form load 
+		
+		function take_snapshot() {
+			Webcam.snap( function(data_uri) {
+				$(".image-tag").val(data_uri);
+				document.getElementById('results').innerHTML = '<img class="flex" src="'+data_uri+'"/>';
+			} );
+			//resetting camera 
+			Webcam.reset();
+			//opeing the button again
+			closecam();
+			
+			
+		}</script>
 @endsection

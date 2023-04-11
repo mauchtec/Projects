@@ -49,7 +49,7 @@ Route::post('/logout',[LoginController::class,'destroy'])->name('logout');
 
 //sites
 
-Route::get('/sites', [SitesController::class, 'index']);
+Route::get('/sites', [SitesController::class, 'index'])->middleware('auth');
 Route::get('/searchsite', [SitesController::class, 'search'])->name('searchsite');
 Route::get('/site/{id}', [SitesController::class, 'edit'])
 ->middleware('auth')
@@ -63,4 +63,7 @@ Route::delete('/deletesite/{id}',[SitesController::class, 'destroy'])
 ->name('deletesite');
 
 
-Route::get('/sims',[SimController::class,'index'])->name('sims');
+Route::get('/sims',[SimController::class,'index']);
+Route::post('/sims',[SimController::class,'store'])->name('sims');
+Route::get('/simedit/{id}', [SimController::class, 'edit']);
+Route::put('/simupdate/{id}',[SimController::class, 'update'])->name('simupdate');

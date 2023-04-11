@@ -15,10 +15,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{asset('js/custom.js')}}"></script>
+<script src="{{asset('js/webcam.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+
 <style>
 
-
+#results {  border:1px solid;  }
 
 .navbar {
 	font-size: 14px;
@@ -44,10 +48,13 @@
 	font-weight: bold;		
 	text-transform: uppercase;
 }
-.navbar .navbar-nav a.active {
+
+.navbar .navbar-nav a.active li.active {
 	color: #f04f01 !important;
 	background: transparent !important;
 }
+
+
 .search-box input.form-control, .search-box .btn {
 	font-size: 14px;
 	border-radius: 2px !important;
@@ -180,7 +187,8 @@ body {
 }
 .signup-form .row div:last-child {
 	padding-left: 10px;
-}    	
+}  
+  	
 .signup-form a {
 	color: #fff;
 	text-decoration: underline;
@@ -207,8 +215,8 @@ body {
 		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 			<div class="navbar-nav">
-				<a href="/" class="nav-item nav-link">Home</a>
-				<a href="{{route('sites')}}" class="nav-item nav-link">Sites</a>			
+				<li class="{{ Request::is('/') ? 'active' : '' }}" ><a href="/" class="nav-item nav-link">Home</a></li>
+				<li class="{{ Request::is('sites') ? 'active' : '' }}" ><a href="{{route('sites')}}" class="nav-item nav-link">Sites</a></li>			
 				<div class="nav-item dropdown">
 					<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
 					<div class="dropdown-menu">					
@@ -218,7 +226,9 @@ body {
 						<a href="#" class="dropdown-item">Digital Marketing</a>
 					</div>
 				</div>
-				<a href="{{route('sims')}}" class="nav-item nav-link active">Portfolio</a>
+				
+				<li  class="{{ Request::is('sims') ? 'active' : '' }}"><a  href="{{route('sims')}}" class="nav-item nav-link ">SimCards</a></li>
+		
 				<a href="#" class="nav-item nav-link">Blog</a>
 				<a href="#" class="nav-item nav-link">Contact</a>
 			</div>

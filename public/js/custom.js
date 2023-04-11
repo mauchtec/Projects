@@ -40,6 +40,7 @@ $(document).ready(function(){
             type: 'PUT',
             data: formData,
             success: function(data) {
+                
                 $('#exampleModal'). modal('hide');
                 location.reload();
             },
