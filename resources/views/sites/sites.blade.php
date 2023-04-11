@@ -75,179 +75,98 @@
 	float: left;
 	margin-top: 2px;
 }
-table.table tr th, table.table tr td {
-	border-color: #e9e9e9;
-	padding: 12px 15px;
-	vertical-align: middle;
-}
-table.table tr th:first-child {
-	width: 60px;
-}
-table.table tr th:last-child {
-	width: 100px;
-}
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-table.table th i {
-	font-size: 13px;
-	margin: 0 5px;
-	cursor: pointer;
-}	
-table.table td:last-child i {
-	opacity: 0.9;
-	font-size: 22px;
-	margin: 0 5px;
-}
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-table.table td a:hover {
-	color: #2196F3;
-}
-table.table td a.edit {
-	color: #FFC107;
-}
-table.table td a.delete {
-	color: #F44336;
-}
-table.table td i {
-	font-size: 19px;
-}
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-.pagination {
-	float: right;
-	margin: 0 0 5px;
-}
-.pagination li a {
-	border: none;
-	font-size: 13px;
-	min-width: 30px;
-	min-height: 30px;
-	color: #999;
-	margin: 0 2px;
-	line-height: 30px;
-	border-radius: 2px !important;
-	text-align: center;
-	padding: 0 6px;
-}
-.pagination li a:hover {
-	color: #666;
-}	
-.pagination li.active a, .pagination li.active a.page-link {
-	background: #03A9F4;
-}
-.pagination li.active a:hover {        
-	background: #0397d6;
-}
-.pagination li.disabled i {
-	color: #ccc;
-}
-.pagination li i {
-	font-size: 16px;
-	padding-top: 6px
-}
-.hint-text {
-	float: left;
-	margin-top: 10px;
-	font-size: 13px;
-}    
-/* Custom checkbox */
-.custom-checkbox {
-	position: relative;
-}
-.custom-checkbox input[type="checkbox"] {    
-	opacity: 0;
-	position: absolute;
-	margin: 5px 0 0 3px;
-	z-index: 9;
-}
-.custom-checkbox label:before{
-	width: 18px;
-	height: 18px;
-}
-.custom-checkbox label:before {
-	content: '';
-	margin-right: 10px;
-	display: inline-block;
-	vertical-align: text-top;
-	background: white;
-	border: 1px solid #bbb;
-	border-radius: 2px;
-	box-sizing: border-box;
-	z-index: 2;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-	content: '';
-	position: absolute;
-	left: 6px;
-	top: 3px;
-	width: 6px;
-	height: 11px;
-	border: solid #000;
-	border-width: 0 3px 3px 0;
-	transform: inherit;
-	z-index: 3;
-	transform: rotateZ(45deg);
-}
-.custom-checkbox input[type="checkbox"]:checked + label:before {
-	border-color: #03A9F4;
-	background: #03A9F4;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-	border-color: #fff;
-}
-.custom-checkbox input[type="checkbox"]:disabled + label:before {
-	color: #b8b8b8;
-	cursor: auto;
-	box-shadow: none;
-	background: #ddd;
-}
-/* Modal styles */
-.modal .modal-dialog {
-	max-width: 400px;
-}
-.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-	padding: 20px 30px;
-}
-.modal .modal-content {
-	border-radius: 3px;
-	font-size: 14px;
-}
-.modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
-}
-.modal .modal-title {
-	display: inline-block;
-}
-.modal .form-control {
-	border-radius: 2px;
-	box-shadow: none;
-	border-color: #dddddd;
-}
-.modal textarea.form-control {
-	resize: vertical;
-}
-.modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-}	
-.modal form label {
-	font-weight: normal;
-}
-
+	.search-box {
+		position: relative;        
+		float: right;
+	}
+	.search-box input {
+		height: 34px;
+		border-radius: 20px;
+		padding-left: 35px;
+		border-color: #ddd;
+		box-shadow: none;
+	}
+	.search-box input:focus {
+		border-color: #3FBAE4;
+	}
+	.search-box i {
+		color: #a0a5b1;
+		position: absolute;
+		font-size: 19px;
+		top: 8px;
+		left: 10px;
+	}
+	table.table tr th, table.table tr td {
+		border-color: #e9e9e9;
+	}
+	table.table-striped tbody tr:nth-of-type(odd) {
+		background-color: #fcfcfc;
+	}
+	table.table-striped.table-hover tbody tr:hover {
+		background: #f5f5f5;
+	}
+	table.table th i {
+		font-size: 13px;
+		margin: 0 5px;
+		cursor: pointer;
+	}
+	table.table td:last-child {
+		width: 130px;
+	}
+	table.table td a {
+		color: #a0a5b1;
+		display: inline-block;
+		margin: 0 5px;
+	}
+	table.table td a.view {
+		color: #03A9F4;
+	}
+	table.table td a.edit {
+		color: #FFC107;
+	}
+	table.table td a.delete {
+		color: #E34724;
+	}
+	table.table td i {
+		font-size: 19px;
+	}    
+	.pagination {
+		float: right;
+		margin: 0 0 5px;
+	}
+	.pagination li a {
+		border: none;
+		font-size: 95%;
+		width: 30px;
+		height: 30px;
+		color: #999;
+		margin: 0 2px;
+		line-height: 30px;
+		border-radius: 30px !important;
+		text-align: center;
+		padding: 0;
+	}
+	.pagination li a:hover {
+		color: #666;
+	}	
+	.pagination li.active a {
+		background: #03A9F4;
+	}
+	.pagination li.active a:hover {        
+		background: #0397d6;
+	}
+	.pagination li.disabled i {
+		color: #ccc;
+	}
+	.pagination li i {
+		font-size: 16px;
+		padding-top: 6px
+	}
+	.hint-text {
+		float: left;
+		margin-top: 6px;
+		font-size: 95%;
+	} 
 
 
 
@@ -294,12 +213,12 @@ table.table .avatar {
 					</div>
 				</div>
 			</div>
-			<table class="table table-striped table-hover " id="sitestable">
+			<table class="table table-striped table-hover table-bordered table-sm table-responsive" id="sitestable">
 				<thead>
 					
 						<th>Site-Name</th>
-						<th>Email</th>
 						<th>Address</th>
+						<th>Email</th>
 						<th>Phone/WhatsApp</th>
 						<th>Co-Ordinates</th>
 						<th>Site-URL</th>
@@ -308,15 +227,16 @@ table.table .avatar {
 				</thead>
 				<tbody>
 					@foreach ($sites as $site)
-					{{$site->email}}
+					
 	
 
 
 					<tr>
 						
 						<td>{{$site->sitename }}</td>
-						<td > <a href="mailto:{{$site->email}}"><i class="fa fa-envelope" aria-hidden="true"></i></a> </td>
-						<td>{{$site->siteaddress}}</td>
+							<td>{{$site->siteaddress}}</td>
+							<td > <a href="mailto:{{$site->email}}"><i class="fa fa-envelope" aria-hidden="true"></i></a> </td>
+					
 						<td> 
 							<a href="tel:+27{{$site->sitenumber }}"><i class="fa fa-phone" aria-hidden="true"></i></a>
 							<a href="https://api.whatsapp.com/send?phone=27{{$site->sitenumber }}"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>

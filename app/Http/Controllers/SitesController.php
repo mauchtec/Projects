@@ -73,7 +73,7 @@ class SitesController extends Controller
     {
        
         $site = Site::find($id);
-        return response()->json($site->toArray());
+        return response()->json($site);
     }
 
     /**

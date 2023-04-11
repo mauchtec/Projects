@@ -161,7 +161,7 @@ function showPosition(position) {
             contentType: false,
             processData: false,
             success: function(data) {
-                console.log(data.id);
+               
                 $('#site_id').val(data.id);
                 $('#sitenames').val(data.sitename);
                 $('#contactpersons').val(data.contactperson);
@@ -186,9 +186,7 @@ function showPosition(position) {
         e.preventDefault();
        
         var id = $(this).attr('site-id');
-
-       
-        $.ajax({
+       $.ajax({
             type: 'GET',
             enctype: 'multipart/form-data',
             url:'/site/'+id,
@@ -217,7 +215,6 @@ function showPosition(position) {
     e.preventDefault();
     var formData = $(this).serialize();
     var id = $('#site_id').val();
-   
     
     $.ajax({
         url: '/site/' + id,
@@ -274,7 +271,7 @@ $(document).ready(function () {
     $('#searchsite').on('keyup', function() {
 
         var searchsite = $(this).val();
-        console.log(searchsite);
+        
 
         $.ajax({
             type: "get",
@@ -284,17 +281,21 @@ $(document).ready(function () {
             
             success: function (response) {
                 $('#sitestable tbody').empty();
-                console.log(response);
+               
                 $.each(response, function (indexInArray, site) { 
                     $('#sitestable tbody').append('<tr><td>'+site.sitename+'</td>'
+                    +'<td>'+site.siteaddress+'</td>'
                     +'<td><a href="mailto:' +site.email+'"><i class="fa fa-envelope" aria-hidden="true"></i></a></td>'
                    
-                    +'<td>'+site.siteaddress+'</td>'
+                    
                     +'<td <a href="https://api.whatsapp.com/send?phone=27'+site.sitenumber+'"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>'
                     +'<a href="tel:+27>'+site.sitenumber+'"><i class="fa fa-phone" aria-hidden="true"></i></a> </td>'
                 
                     +'<td> <a href="https://www.google.com/search?q='+site.coodinates+'"><i class="fa fa-map-marker" aria-hidden="true"></i></i></a></td>'
-                    +'<td> <a href="'+site.link+'"><i class="fa fa-link" aria-hidden="true"></i></a></td></tr>');
+                    +'<td> <a href="'+site.link+'"><i class="fa fa-link" aria-hidden="true"></i></a></td>'
+                    +'<td> <a href="#"  class="view" title="View" data-toggle="modal" data-target="#exampleModal" site-id="'+site.id+'"><i class="material-icons">&#xE417;</i></a>'
+                    +'<a href="#" data-toggle="modal" data-target="#editsite" site-id="'+site.id+'" class="editsite" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'
+                    +'<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td></tr>');
                 });
                 
             }

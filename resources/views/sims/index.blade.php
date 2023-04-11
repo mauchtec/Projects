@@ -28,6 +28,10 @@
 .input-field:focus {
   border: 2px solid dodgerblue;
 }
+.table-container {
+  width: 50%;
+  margin: 0 auto; /* Center the table */
+}
 
 .table-responsive {
     margin: 30px 0;
@@ -194,64 +198,55 @@
 			</div>
 
 
-			
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-						
-						<th>Serial <i class="fa fa-sort"></i></th>
-						<th>Site-Name <i class="fa fa-sort"></i></th>
-						<th>Purpose <i class="fa fa-sort"></i></th>
-						<th>Status <i class="fa fa-sort"></i></th>						
-						<th>Actions</th>
-					</tr>
-                </thead>
-                <tbody>
-					@foreach($images as $image)
-					<tr>
-						<td>{{$image->Serial}}</td>
-						@if ($image->sitename)
-						
-						<td>{{$image->sitename}}</td>
-						@else
-						<td>New Sim</td>
-						@endif
-						<td class="bg-info text-white">{{$image->Purpose}}</td>
-						@if ($image->active)
-						<td class="bg-success text-white">used on site</td>
-						@else
-						<td class="bg-danger text-white">in-stock</td>
-						@endif
-                        <td>
-                            <a href="#"  class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a href="#" data-toggle="modal" data-target="#EditSimcard" data-id="{{$image->id}}" class="editsim-btn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="#" data-toggle="modal" data-target="#delete"   data-id="#" class="edit-btn"><i class="material-icons" style='color:red'>&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                   
-                </tbody>
-                   
-            </table>
-
-
-
-			
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
+			<div class="row">
+				<div class="col">
+					<table class=" table-container table table-striped table-hover table-bordered table-sm table-responsive">
+						<thead>
+							<tr>
+								
+								<th>Serial <i class="fa fa-sort"></i></th>
+								<th>Site-Name <i class="fa fa-sort"></i></th>
+								<th>Purpose <i class="fa fa-sort"></i></th>
+								<th>Status <i class="fa fa-sort"></i></th>						
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($images as $image)
+							<tr>
+								<td>{{$image->Serial}}</td>
+								@if ($image->sitename)
+								
+								<td>{{$image->sitename}}</td>
+								@else
+								<td>New Sim</td>
+								@endif
+								<td class="bg-info text-white">{{$image->Purpose}}</td>
+								@if ($image->active)
+								<td class="bg-success text-white">used on site</td>
+								@else
+								<td class="bg-danger text-white">in-stock</td>
+								@endif
+								<td>
+									<a href="#"  class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+									<a href="#" data-toggle="modal" data-target="#EditSimcard" data-id="{{$image->id}}" class="editsim-btn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+									<a href="#" data-toggle="modal" data-target="#delete"   data-id="#" class="edit-btn"><i class="material-icons" style='color:red'>&#xE872;</i></a>
+								</td>
+							</tr>
+							@endforeach
+						   
+						</tbody>
+						   
+					</table>
+				</div>
+				
 			</div>
-		</div>
-	</div>        
-</div>
+            
+
+
+
+			
+			
 
 
 
@@ -303,7 +298,7 @@
 <!-- Edit Modal HTML -->
 <div id="EditSimcard" class="modal fade">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content ">
 			<form action="" method="put" id="updatesim" class="updatesim">
 				<input type="hidden" name="id" id="id" >
 				<div class="modal-header">						
