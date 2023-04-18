@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JobcardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SimController;
 use App\Http\Controllers\SitesController;
 use Illuminate\Support\Facades\Route;
@@ -66,4 +68,16 @@ Route::delete('/deletesite/{id}',[SitesController::class, 'destroy'])
 Route::get('/sims',[SimController::class,'index']);
 Route::post('/sims',[SimController::class,'store'])->name('sims');
 Route::get('/simedit/{id}', [SimController::class, 'edit']);
+Route::get('/usersim/{id}', [SimController::class, 'show']);
+Route::delete('/deletesim/{id}', [SimController::class, 'destroy']);
 Route::put('/simupdate/{id}',[SimController::class, 'update'])->name('simupdate');
+
+
+//job card
+Route::get('/jobcard',[JobcardController::class,'index']);
+Route::post('/jobcard',[JobcardController::class,'submit'])->name('jobcard.create');
+
+
+
+Route::get('/generate-pdf/{id}', [ReportController::class, 'show']);
+

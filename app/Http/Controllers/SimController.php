@@ -7,6 +7,7 @@ use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\Return_;
 
 class SimController extends Controller
 {
@@ -15,6 +16,7 @@ class SimController extends Controller
      */
     public function index()
     {
+        
         $images = Sim::all()->sortBy('active');
 
         return view('sims.index', compact('images'));
@@ -68,9 +70,10 @@ class SimController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
+        $sim = Sim::where('user_id',$id)->get();
+        Return response()->json($sim);
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -120,6 +123,11 @@ class SimController extends Controller
      */
     public function destroy(string $id)
     {
+        $sim = Sim::findOrFail($id);
+
+        dd($sim);
+        Storage::delete('storage/images/'.$sim->image);
+        $sim->delete();
         //
     }
 }

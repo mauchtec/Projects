@@ -182,13 +182,22 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<h2>Manage <b>Sims</b></h2>
 					</div>
-					<div class="col-sm-6">
+					
+					<div class="col-sm-8  form-switch">
+						
 						<a href="#addSimcard" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Simcard</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-						<div class="search-box">
+						
+							<input class="form-check-input" type="checkbox" user-id="{{auth()->id()}}" role="switch" id="flexSwitchCheckDefault">
+							<label class="form-check-label" for="flexSwitchCheckDefault">Get your sims</label>
+						  
+						<div class="search-box ">
+							
+								
+							  
                             <i class="material-icons">&#xE8B6;</i>
                             <input type="text" class="form-control" placeholder="Search&hellip;">
                         </div>
@@ -200,14 +209,14 @@
 
 			<div class="row">
 				<div class="col">
-					<table class=" table-container table table-striped table-hover table-bordered table-sm table-responsive">
+					<table class=" table-container table table-striped table-hover table-bordered table-sm table-responsive" id="simstable">
 						<thead>
 							<tr>
 								
 								<th>Serial <i class="fa fa-sort"></i></th>
 								<th>Site-Name <i class="fa fa-sort"></i></th>
-								<th>Purpose <i class="fa fa-sort"></i></th>
-								<th>Status <i class="fa fa-sort"></i></th>						
+								<th>Purpose </th>
+								<th>Status </th>						
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -228,9 +237,9 @@
 								<td class="bg-danger text-white">in-stock</td>
 								@endif
 								<td>
-									<a href="#"  class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+									<a href="#" data-toggle="modal" data-target="#ViewSim"  data-id="{{$image->id}}"class="viewsim-btn"><i class="material-icons">&#xE417;</i></a>
 									<a href="#" data-toggle="modal" data-target="#EditSimcard" data-id="{{$image->id}}" class="editsim-btn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-									<a href="#" data-toggle="modal" data-target="#delete"   data-id="#" class="edit-btn"><i class="material-icons" style='color:red'>&#xE872;</i></a>
+									<a href="#" data-toggle="modal" data-target="#deletesim"   sim-id="{{$image->id}}" class="edit-btn deletesim"><i class="material-icons" style='color:red'>&#xE872;</i></a>
 								</td>
 							</tr>
 							@endforeach
@@ -241,6 +250,7 @@
 				</div>
 				
 			</div>
+			
             
 
 
@@ -367,8 +377,46 @@
 		</div>
 	</div>
 </div>
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<!-- ViewSim Modal HTML -->
+<div id="ViewSim" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content text-dark">
+			<form>
+				<div class="modal-header">						
+					<h4 class="modal-title">Sim information</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body " id="man">
+					<form action="" id="man">
+					<div class="row ">
+						<div class="col col-4" id="image-contain">
+							
+								<input type="image" id="sims"  name="sims" src="" alt="">
+														
+						</div>
+						<div class="col col-8" id="simserial">
+							<label id="site" for=""></label><br>
+							<label id="simser" for=""></label><br>
+							<label id="purposed" for=""></label><br>
+							
+						</div>
+						
+					</div>					
+				</form>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="deletesim" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
