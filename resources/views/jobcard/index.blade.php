@@ -299,7 +299,7 @@
 					</div>
 					<div class="col-sm-6">
 						
-						<a href="#addsite" class="btn btn-success location " data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>New Jobcard</span></a>
+						<a href="#addEmployeeModal" class="btn btn-success location " data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>New Jobcard</span></a>
 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 						<div class="search-box   ">
                             <i class="material-icons">&#xE8B6;</i>
@@ -370,90 +370,110 @@
         @endif
         
    </div>
-   <form action="{{route('jobcard.create')}}" method="post">
-    @csrf
-    <h2>JobCard</h2>
-    
-    <div class="form-group">
-        <div class="row">
-            <div class="col"><input type="text" class="form-control input-sm" name="clientname" placeholder="Client Name" ></div>
-            @error('clientname')
-            <div class="text-danger">{{$message}}</div>
-            @enderror
-        </div>        	
-    </div>
-    
-    <div class="form-group">
-        <input type="tel" class="form-control input-sm" name="phone" id="phone" placeholder="27656231093">
-        @error('phone')
-        <div class="text-danger">{{$message}}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <input type="email" class="form-control input-sm" name="email" placeholder="Client Email" >
-        @error('email')
-        <div class="text-danger">{{$message}}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <label for="browser" class="form-label">Choose a site from the list:</label>
-        <input class="form-control" list="sitename" name="sitename" id="fruit">
-        <datalist id="sitename">
-            @foreach ($browsers as $browser)
-           
-            <option value="{{ $browser }}">{{ $browser }}</option>
-           
-        @endforeach
-       
-        </datalist>
-        @error('sitename')
-        <div class="text-danger">{{$message}}</div>
-        @enderror
-    </div>
-    <div class="form-group">
-        <label for="appt">Start Time</label><input type="time" id="start" name="start">
-        <label for="appt">End Time</label><input type="time" id="end" name="end">
-    </div>
-    <div class="form-group">
-        <input type="hidden" name="trust" id="trust">
-        <label for="description">Fault Report</label>
-        
-        <textarea name="description" id="description" cols="30" rows="5" class="form-control input-sm"></textarea>
-    </div> 
-   
+ 
+
+
+<!-- Edit Modal HTML -->
+<div id="addEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="{{route('jobcard.create')}}" method="post">
+				<div class="modal-header">	
+                    				
+					<h4 class="modal-title">JobCard</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				
+                    
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signatureModal">Sign Here</button>
+                    </div>
                 
-   
-      
-    
-  
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary" id="gg">Save</button>
-    </div>
-
-</form>
-<div class="form-group">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signatureModal">Sign Here</button>
-    </div>
-
-<div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="signatureModalLabel">Sign Here</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <canvas id="signature-pad"></canvas>
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveSignature">Save</button>
-        </div>
-    </div>
-    </div>
+                <div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="signatureModalLabel">Sign Here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        <canvas id="signature-pad"></canvas>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn  btn-secondary " data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary getElementById " id="saveSignature">Save</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+				<div class="modal-body">					
+                    
+                        @csrf
+                       
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col"><input type="text" class="form-control input-sm" name="clientname" placeholder="Client Name" ></div>
+                                @error('clientname')
+                                <div class="text-danger">{{$message}}</div>
+                                @enderror
+                            </div>        	
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" class="form-control input-sm" name="phone" id="phone" placeholder="27656231093">
+                            @error('phone')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control input-sm" name="email" placeholder="Client Email" >
+                            @error('email')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="browser" class="form-label">Choose a site from the list:</label>
+                            <input class="form-control" list="sitename" name="sitename" id="fruit">
+                            <datalist id="sitename">
+                                @foreach ($browsers as $browser)
+                               
+                                <option value="{{ $browser }}">{{ $browser }}</option>
+                               
+                            @endforeach
+                           
+                            </datalist>
+                            @error('sitename')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="appt">Start Time</label><input type="time" id="start" name="start">
+                            <label for="appt">End Time</label><input type="time" id="end" name="end">
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="trust" id="trust">
+                            <label for="description">Fault Report</label>
+                            
+                            <textarea name="description" id="description" cols="30" rows="5" class="form-control input-sm"></textarea>
+                        </div> 
+                       
+                                    
+                       
+                          
+                        
+                      
+                    
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="gg">Save</button>
+                        </div>
+                    
+                    
+			</form>
+		</div>
+	</div>
 </div>
   <script>
     
@@ -471,8 +491,14 @@ $('#saveSignature').on('click', function() {
   console.log(dataURL);
   $('#trust').val(dataURL);
   $('#signatureModal').modal('hide');
+  var modal = document.getElementById("signatureModal");
+var closeBtn = document.getElementsByClassName("saveSignature")[0];
+
+modal.style.display = "none";
 });
 });
+
+
   </script>
         
 

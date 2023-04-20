@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('clientnumber');
             $table->string('sitename');
             $table->string('signature');
-            $table->string('description');
+            $table->text('description');
             $table->time('starttime');
             $table->time('endtime');
             $table->timestamps();
@@ -30,6 +30,8 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
+
+    
     {
         Schema::dropIfExists('jobcards');
     }
