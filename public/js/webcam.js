@@ -75,7 +75,7 @@ $(document).ready(function(){
                 processData: false,
                 success: function(data) {
                     
-                    $('#image-contain').html('<img src="storage/images/' + data.sim.image + '">');
+                    $('#image-contain').html('<img src="images/' + data.sim.image + '">');
                     $('#simser').append('<b>Serial:</b> '+data.sim.Serial);
                     $('#purposed').append('<b>Purpose:</b>'+data.sim.Purpose);
                     $('#site').append('<b>Site-Name:</b>'+data.sim.sitename);

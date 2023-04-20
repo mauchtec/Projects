@@ -50,9 +50,9 @@ class SimController extends Controller
     $image_base64 = base64_decode($image_parts[1]);
     $fileName = uniqid() . '.png';
     
-    $file = $folderPath . $fileName;
-   
-    Storage::put($file, $image_base64);
+ 
+    file_put_contents(public_path('images/'.$fileName), $image_base64);
+    
 
     $image = new Sim();
         $image->serial=$request->serial;

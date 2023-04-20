@@ -56,9 +56,9 @@ class ReportController extends Controller
     $pdf->AddPage();
     $pdf->SetFont('helvetica', '', 12);
     $pdf->SetAutoPageBreak(TRUE, 10);
-    $image = file_get_contents('storage/images/cloudsell.png');
+    $image = file_get_contents('images/cloudsell.png');
 
-    $signature = file_get_contents('storage/'. $jobcard->signature  .'');
+    $signature = file_get_contents('images/'. $jobcard->signature  .'');
 
     // Generate the table of users $html = '<input type="image" src="storage/images/'. $jobcard->signature  .'" alt="">';
 

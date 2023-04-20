@@ -42,7 +42,9 @@ public function submit(Request $request)
     $signatureData = str_replace(' ', '+', $signatureData);
     $signatureImage = base64_decode($signatureData);
     $fileName = time() . '.png';
-    Storage::disk('public')->put($fileName, $signatureImage);
+    file_put_contents(public_path('images/'.$fileName), $signatureImage);
+
+   // Storage::disk('public')->put($fileName, $signatureImage);
     // Do something with the selected browser...
     $jobcard = new Jobcard();
     $jobcard->tachname =$user->name;
