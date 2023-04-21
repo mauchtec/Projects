@@ -56,16 +56,19 @@ class ReportController extends Controller
     $pdf->AddPage();
     $pdf->SetFont('helvetica', '', 12);
     $pdf->SetAutoPageBreak(TRUE, 10);
-    $image = file_get_contents('images/cloudsell.png');
+    
+    $signature =  public_path('images/'. $jobcard->signature  .'');
 
-    $signature = file_get_contents('images/'. $jobcard->signature  .'');
+    $imagePath = public_path('images/cloudsell.png');
+
 
     // Generate the table of users $html = '<input type="image" src="storage/images/'. $jobcard->signature  .'" alt="">';
 
     $pdf->Setfont('helvetica','B',12);
         
     $pdf->SetXY(20,20);
-    $pdf->Image('@'.$image,'','',150);
+    
+    $pdf->Image($imagePath, 10, 10, 150, 0, 'PNG');
     $pdf->SetXY(20,20);
     $html=('<br>');
     $html .= '<br>';
@@ -79,7 +82,8 @@ class ReportController extends Controller
     $html .= '<p>Site Name:<em>' ."   ". $jobcard->sitename . '</em></p>';
     $html .= '<p>Site Number:<em>' ."   ". $jobcard->clientnumber . '</em></p>';
     $html .= '<p>Description:<em>' ."   ". $jobcard->description . '</em></p>';
-    $pdf->Image('@'.$signature,150,140,50,50);
+    $pdf->Image('@'.$signature, 10, 10, 150, 0, 'PNG');
+    //$pdf->Image('@'.$signature,150,140,50,50);
 
     // Output the HTML as a PDF
     $pdf->writeHTML( $html,true, false, true, false, '');
