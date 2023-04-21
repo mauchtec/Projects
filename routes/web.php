@@ -9,6 +9,7 @@ use App\Http\Controllers\SimController;
 use App\Http\Controllers\SitesController;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\URL;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
