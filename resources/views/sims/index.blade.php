@@ -267,7 +267,7 @@
 <div id="addSimcard" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="post" action="{{'/sims'}}">
+			<form method="post" action="{{secure_url('/sims')}}">
 
 				@csrf
 				<div class="modal-header">						
