@@ -15,10 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        Schema::defaultStringLength(191);
-        Paginator::useBootstrap();
-        if(env('REDIRECT_HTTPS')) {
-            $url->formatScheme('https');
+        if (env('APP_ENV') !== 'local') {
+            $url->forceScheme('https');
         }
     }
 
@@ -28,11 +26,11 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    {
-        if(env('REDIRECT_HTTPS')) {
-            $this->app['request']->server->set('HTTPS', true);
-        }
-    }
+{
+    $this->app['request']->server->set('HTTPS', $this->app->environment() !== 'local');
+    $this->app['request']->server->set('SERVER_PORT', 443);
+    $this->app['request']->server->set('HTTP_X_FORWARDED_PROTO', 'https');
+}
 
     /**
      * Bootstrap any application services.
