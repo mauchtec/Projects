@@ -58,7 +58,7 @@ class ReportController extends Controller
     $pdf->SetAutoPageBreak(TRUE, 10);
     
     $signature =  public_path('images/'. $jobcard->signature  .'');
-
+    Storage::url($jobcard->$signature);
     $imagePath = public_path('images/cloudsell.png');
 
 

@@ -267,7 +267,7 @@
 <div id="addSimcard" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="post" action="{{secure_url('/sims')}}">
+			<form method="post" action="{{'/sims'}}">
 
 				@csrf
 				<div class="modal-header">						
@@ -281,7 +281,7 @@
 					  }">
 						<div class="col-md-6 col-sm-6">
 							<div id="my_camera" onClick="take_snapshot()"  ></div>
-							
+							<input type="file"  accept="image/;capture=camera">
 							
 							<input type="hidden" name="image" class="image-tag" style="width:100%" >
 						</div>

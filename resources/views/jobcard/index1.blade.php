@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet"> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+  
 
 <style>
 
@@ -283,6 +289,14 @@
     .signup-form form a:hover {
         text-decoration: underline;
     } 
+    #sig {
+  width:auto;
+  height: 200px;
+  border:  solid #c3c3c3;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
           
         </style>
 
@@ -377,7 +391,7 @@
 <div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="{{ route('jobcard.create')}}" method="post">
+			<form action="{{ secure_url('jobcard.create')}}" method="post">
 				<div class="modal-header">	
                     				
 					<h4 class="modal-title">JobCard</h4>
@@ -389,25 +403,49 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signatureModal">Sign Here</button>
                     </div>
                 
-                <div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="signatureModalLabel">Sign Here</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" aria-hidden="true">
+                        <div class="modal-dialog " style="width:27%;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="signatureModalLabel">Laravel Signature Pad Tutorial Example - raviyatechnical</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="card">
+                                      <div class="card-body">
+                                        @if ($message = Session::get('success'))
+                                        <div class="alert alert-success  alert-dismissible">
+                                          <button type="button" class="close" data-dismiss="alert">×</button>  
+                                          <strong>{{ $message }}</strong>
+                                        </div>
+                                        @endif
+                                        <form method="POST" action="">
+                                          @csrf
+                                          <div class="col-7">
+                                            <label class="" for="">Signature:</label>
+                                            <br/>
+                                            <div id="sig" ></div>
+                                            <br/>
+                                            <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
+                                            <textarea id="signature64" name="signed" style="display: none"></textarea>
+                                          </div>
+                                          <br/>
+                                          <button class="btn btn-success">Save</button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="modal-body">
-                        <canvas id="signature-pad"></canvas>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn  btn-secondary " data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary getElementById " id="saveSignature">Save</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                      </div>
 				<div class="modal-body">					
                     
                         @csrf
@@ -476,28 +514,12 @@
 	</div>
 </div>
   <script>
-    
-    $('#signatureModal').on('shown.bs.modal', function() {
-      var canvas = document.getElementById('signature-pad');
-      var signaturePad = new SignaturePad(canvas);
+     var sig = $('#sig').signature({syncField: '#signature64', syncFormat: 'PNG'});
+    $('#clear').click(function(e) {
+        e.preventDefault();
+        sig.signature('clear');
+        $("#signature64").val('');
     });
-
-    $('#signatureModal').on('shown.bs.modal', function() {
-var canvas = document.getElementById('signature-pad');
-var signaturePad = new SignaturePad(canvas);
-$('#saveSignature').on('click', function() {
-  var dataURL = signaturePad.toDataURL();
-
-  console.log(dataURL);
-  $('#trust').val(dataURL);
-  $('#signatureModal').modal('hide');
-  var modal = document.getElementById("signatureModal");
-var closeBtn = document.getElementsByClassName("saveSignature")[0];
-
-modal.style.display = "none";
-});
-});
-
 
   </script>
         

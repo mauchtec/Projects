@@ -58,5 +58,55 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signature-modal"">Sign Here</button>
+        </div>
+
+    <!-- Modal form -->
+<div class="modal fade" id="signature-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sign Here</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <canvas id="signature-canvas"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="save-signature-btn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- JavaScript code -->
+  <script>
+    $(document).ready(function() {
+      // Initialize signature pad library
+      var canvas = document.getElementById("signature-canvas");
+      var signaturePad = new SignaturePad(canvas);
+      
+      // Add event listeners to modal buttons
+      $("#save-signature-btn").click(function() {
+        // Get signature data and add it to form data
+        var signatureData = signaturePad.toDataURL();
+        $("#my-form").append("<input type='hidden' name='signature' value='" + signatureData + "'>");
+        
+        // Close modal
+        $("#signature-modal").modal("hide");
+        
+        // Reset signature pad
+        signaturePad.clear();
+      });
+      
+      $("#signature-modal").on("hidden.bs.modal", function() {
+        // Reset signature pad when modal is closed
+        signaturePad.clear();
+      });
+    });
+  </script>
+  
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Routing\UrlGenerator;
+
 
 
 use Illuminate\Pagination\Paginator;
@@ -13,11 +13,9 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
-        if (env('APP_ENV') !== 'local') {
-            $url->forceScheme('https');
-        }
+        
     }
 
     /**
@@ -27,9 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
 {
-    $this->app['request']->server->set('HTTPS', $this->app->environment() !== 'local');
-    $this->app['request']->server->set('SERVER_PORT', 443);
-    $this->app['request']->server->set('HTTP_X_FORWARDED_PROTO', 'https');
+  
 }
 
     /**

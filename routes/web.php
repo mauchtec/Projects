@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\URL;
 */
 
 
+
 Route::get('/',[DashboardController::class, 'index'])
 ->middleware('auth')
 ->name('dashboard');
@@ -81,4 +82,9 @@ Route::post('/jobcard',[JobcardController::class,'submit'])->name('jobcard.creat
 
 
 Route::get('/generate-pdf/{id}', [ReportController::class, 'show']);
+
+
+
+
+
 
