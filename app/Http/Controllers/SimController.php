@@ -38,7 +38,34 @@ class SimController extends Controller
     public function store(Request $request)
     {
         
-        //dd($request);
+       // dd($request);
+        $imageData = $request->imaged; // base64-encoded PNG image data
+$pattern = '/^data:image\/(png|jpeg|jpg|gif);base64,/i';
+$isBase64 = preg_match($pattern, $imageData);
+
+if ($isBase64) {
+    dd($request);
+    $imageData = base64_decode(preg_replace($pattern, '', $imageData));
+    $image = imagecreatefromstring($imageData);
+    if ($image !== false) {
+        $imageName  =  uniqid().'.png';
+        $imagePath = public_path('images/'. $imageName);
+        imagepng($image, $imagePath);
+        imagedestroy($image);
+        dd($imageName);
+    }
+} else {
+    $image = $imageData;
+    $image = $request->file('imaged');
+$imageExtension = $image->extension();
+    // Generate a unique filename for the image
+
+    $imageName = time().'.'.$imageExtension;  
+     
+    $request->imaged->move(public_path('images'), $imageName);
+    
+    dd($imageName);
+}
         $img = $request->image;
     $folderPath = "public/images/";
     

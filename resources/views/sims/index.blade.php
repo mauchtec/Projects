@@ -267,7 +267,7 @@
 <div id="addSimcard" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="post" action="{{'/sims'}}">
+			<form method="post" action="{{'/sims'}}" enctype="multipart/form-data">
 
 				@csrf
 				<div class="modal-header">						
@@ -280,15 +280,15 @@
 						display: flex;
 					  }">
 						<div class="col-md-6 col-sm-6">
-							<div id="my_camera" onClick="take_snapshot()"  ></div>
-							<input type="file" name="imaged" accept="image/;capture=camera">
+							
+							<input type="file" name="imaged" id="myFileInput" accept="image/;capture=camera">
 							
 							<input type="hidden" name="image" class="image-tag" style="width:100%" >
 						</div>
 						<div class="col-md-6 col-sm-6" id="results">
-							
+							<img id="myImage" width="200" height="200">
 						</div>
-						<input type="button" id="startcam" value="Access Camera" onClick="setup(); $(this).hide().next().show();">
+
 						
 					</div>
 					<div class="form-group">
@@ -454,40 +454,15 @@ function addscannernumber(){
           }
         
 }
-	Webcam.set({
-	  		width: 150,
-			height: 150,
-			dest_width: 150,
-			dest_height: 150,
-			image_format: 'jpeg',
-			jpeg_quality: 95,
-			force_flash: false,
-			flip_horiz: false,
-			fps: 45,
-		constraints: {
-	   facingMode: 'environment'
-	 }
-		});
-		function closecam(){
-			Webcam.reset();
-			document.getElementById("startcam").style.display="block";
-		}
-		function setup() {
-			Webcam.reset();
-			Webcam.attach( '#my_camera' );
-		}
-		//Webcam.attach( '#my_camera' );----> this was to start the camera on form load 
-		
-		function take_snapshot() {
-			Webcam.snap( function(data_uri) {
-				$(".image-tag").val(data_uri);
-				document.getElementById('results').innerHTML = '<img class="flex" src="'+data_uri+'"/>';
-			} );
-			//resetting camera 
-			Webcam.reset();
-			//opeing the button again
-			closecam();
-			
-			
-		}</script>
+
+const fileInput = document.getElementById('myFileInput');
+const img = document.getElementById('myImage');
+
+fileInput.addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const url = URL.createObjectURL(file);
+  img.src = url;
+});
+
+	</script>
 @endsection
