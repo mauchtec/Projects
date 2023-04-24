@@ -38,7 +38,7 @@ class SimController extends Controller
     public function store(Request $request)
     {
         
-        //dd($request);
+        dd($request);
         $img = $request->image;
     $folderPath = "public/images/";
     

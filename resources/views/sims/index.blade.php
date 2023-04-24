@@ -281,7 +281,7 @@
 					  }">
 						<div class="col-md-6 col-sm-6">
 							<div id="my_camera" onClick="take_snapshot()"  ></div>
-							<input type="file"  accept="image/;capture=camera">
+							<input type="file" name="imaged" accept="image/;capture=camera">
 							
 							<input type="hidden" name="image" class="image-tag" style="width:100%" >
 						</div>
