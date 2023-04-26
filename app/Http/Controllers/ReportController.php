@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use TCPDF;
-use App\Models\Site;
 use App\Models\User;
+
 
 use App\Models\Jobcard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -18,9 +19,10 @@ class ReportController extends Controller
      */
     public function index()
     {
-
-
-
+        
+        $jobcard = Jobcard::where('id', 5)->first();
+        $datas = $jobcard->toArray();
+        Return view('pdf_view', compact('datas'));
     }
 
     /**
@@ -28,7 +30,15 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+      
+
+        $jobcard = Jobcard::where('id', 5)->first();
+        $datas = $jobcard->toArray();
+        //dd($datas);
+$view = view('pdf_view', compact('datas'));
+//dd($view);
+$pdf = PDF::loadHTML($view);
+return $pdf->download('pdf_file.pdf');
     }
 
     /**
@@ -44,54 +54,12 @@ class ReportController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $users = User::all()->toArray();
 
+        $pdf = new Dompdf();
         
-       // Get all users from the database
-    $jobcard = Jobcard::find($id);
-
-    // Set up the PDF document
-    $pdf = new TCPDF();
-    $pdf->SetMargins(10, 10, 10);
-    $pdf->AddPage();
-    $pdf->SetFont('helvetica', '', 12);
-    $pdf->SetAutoPageBreak(TRUE, 10);
-    
-    $signature =  public_path('images/'. $jobcard->signature  .'');
-    Storage::url($jobcard->$signature);
-    $imagePath = public_path('images/cloudsell.png');
-
-
-    // Generate the table of users $html = '<input type="image" src="storage/images/'. $jobcard->signature  .'" alt="">';
-
-    $pdf->Setfont('helvetica','B',12);
-        
-    $pdf->SetXY(20,20);
-    
-    $pdf->Image($imagePath, 10, 10, 150, 0, 'PNG');
-    $pdf->SetXY(20,20);
-    $html=('<br>');
-    $html .= '<br>';
-    $html .= '<br>';
-    $html .= '<br>';
-    $html .= '<br>';
-    $html .= '<br>';
-   
-    $html .= '<p><em>Technician Name:</em>' ."   ". $jobcard->tachname .'</p>';
-    $html .= '<p>Client Email:<em>' ."   ". $jobcard->clientemail . '</em></p>';
-    $html .= '<p>Site Name:<em>' ."   ". $jobcard->sitename . '</em></p>';
-    $html .= '<p>Site Number:<em>' ."   ". $jobcard->clientnumber . '</em></p>';
-    $html .= '<p>Description:<em>' ."   ". $jobcard->description . '</em></p>';
-    $pdf->Image('@'.$signature, 10, 10, 150, 0, 'PNG');
-    //$pdf->Image('@'.$signature,150,140,50,50);
-
-    // Output the HTML as a PDF
-    $pdf->writeHTML( $html,true, false, true, false, '');
-    $fileName = time() . '.pdf';
-    //$pdf_data = $pdf->Output($fileName ,'I');
-    Storage::put($pdf->Output($fileName ,'I'));
-
-
+        $pdf= PDF::loadView('jobcard.pdf', ['users' => $users]);
+        return $pdf->stream();
 
     }
 

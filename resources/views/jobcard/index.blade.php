@@ -334,7 +334,7 @@
                         <td>{{$job->sitename}}</td> 
                         <td>
                             <a href="#" class="send" title="send" data-toggle="tooltip"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
-                            <a href="/generate-pdf/{{$job->id}}" target="_blank" class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                            <a href="/jobcard/{{$job->id}}" target="_blank" class="edit" title="pdf" data-toggle="tooltip"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                             <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -377,7 +377,7 @@
 <div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="{{ route('jobcard.create')}}" method="post">
+			<form action="{{ route('jobcard.create')}}" method="post" enctype="multipart/form-data">
 				<div class="modal-header">	
                     				
 					<h4 class="modal-title">JobCard</h4>

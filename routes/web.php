@@ -78,10 +78,13 @@ Route::put('/simupdate/{id}',[SimController::class, 'update'])->name('simupdate'
 //job card
 Route::get('/jobcard',[JobcardController::class,'index']);
 Route::post('/jobcard',[JobcardController::class,'submit'])->name('jobcard.create');
+Route::get('/jobcard/{id}',[JobcardController::class,'show']);
 
 
 
-Route::get('/generate-pdf/{id}', [ReportController::class, 'show']);
+
+Route::get('/generate-pdf', [ReportController::class, 'index']);
+Route::get('/done', [ReportController::class, 'create'])->name('done');
 
 
 

@@ -39,58 +39,47 @@ class SimController extends Controller
     {
         
        // dd($request);
+       $imageName =0;
         $imageData = $request->imaged; // base64-encoded PNG image data
-$pattern = '/^data:image\/(png|jpeg|jpg|gif);base64,/i';
-$isBase64 = preg_match($pattern, $imageData);
+            $pattern = '/^data:image\/(png|jpeg|jpg|gif);base64,/i';
+            $isBase64 = preg_match($pattern, $imageData);
 
-if ($isBase64) {
-    dd($request);
-    $imageData = base64_decode(preg_replace($pattern, '', $imageData));
-    $image = imagecreatefromstring($imageData);
-    if ($image !== false) {
-        $imageName  =  uniqid().'.png';
-        $imagePath = public_path('images/'. $imageName);
-        imagepng($image, $imagePath);
-        imagedestroy($image);
-        dd($imageName);
-    }
-} else {
-    $image = $imageData;
-    $image = $request->file('imaged');
-$imageExtension = $image->extension();
-    // Generate a unique filename for the image
+            if ($isBase64) {
+                dd($request);
+                $imageData = base64_decode(preg_replace($pattern, '', $imageData));
+                $image = imagecreatefromstring($imageData);
+                if ($image !== false) {
+                    $imageName  =  uniqid().'.png';
+                    $imagePath = public_path('images/'. $imageName);
+                    imagepng($image, $imagePath);
+                    imagedestroy($image);
+                    
+                }
+            } else {
+                $image = $imageData;
+                $image = $request->file('imaged');
+            $imageExtension = $image->extension();
+                // Generate a unique filename for the image
 
-    $imageName = time().'.'.$imageExtension;  
-     
-    $request->imaged->move(public_path('images'), $imageName);
-    
-    dd($imageName);
-}
-        $img = $request->image;
-    $folderPath = "public/images/";
-    
-    
-    $image_parts = explode(";base64,", $img);
-    $image_type_aux = explode("image/", $image_parts[0]);
-    $image_type = $image_type_aux[1];
-    
-    $image_base64 = base64_decode($image_parts[1]);
-    $fileName = uniqid() . '.png';
-    
- 
-    file_put_contents(public_path('images/'.$fileName), $image_base64);
-    
+                $imageName = time().'.'.$imageExtension;  
+                
+                $request->imaged->move(public_path('images'), $imageName);
+                
+               
+            }
+                    
+                
 
-    $image = new Sim();
-        $image->serial=$request->serial;
-        $image->image = $fileName;
-        $image->active =0;
-        $image->user_id=auth()->id();
-        $image->save();
-    
-        return redirect()->back()->with('success', 'Image uploaded successfully.');
- 
-    }
+                $image = new Sim();
+                    $image->serial=$request->serial;
+                    $image->image = $imageName;
+                    $image->active =0;
+                    $image->user_id=auth()->id();
+                    $image->save();
+                
+                    return redirect()->back()->with('success', 'Image uploaded successfully.');
+            
+                }
 
     /**
      * Display the specified resource.

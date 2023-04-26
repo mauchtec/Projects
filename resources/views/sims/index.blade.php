@@ -117,6 +117,10 @@
 	table.table td:last-child {
 		width: 130px;
 	}
+	img{
+		width: 180px;
+    height: 100px;
+	}
 	table.table td a {
 		color: #a0a5b1;
 		display: inline-block;
@@ -317,7 +321,8 @@
 				</div>
 				<div class="modal-body text-dark">					
 					<div class="form-group" id="image-container">
-						<input type="image" id="sim"  name="sim" src="" alt="">
+						<input type="image" id="sim"  name="sim" src="" alt="" >
+						
 					</div>
 					<div class="form-group">
 						<label>Serial Number</label>
@@ -389,12 +394,12 @@
 				<div class="modal-body " id="man">
 					<form action="" id="man">
 					<div class="row ">
-						<div class="col col-4" id="image-contain">
+						<div class="col col-5" id="image-contain">
 							
-								<input type="image" id="sims"  name="sims" src="" alt="">
+								<input type="image" id="sims"  name="sims" src="" alt="" width="200" height="200">
 														
 						</div>
-						<div class="col col-8" id="simserial">
+						<div class="col col-7" id="simserial">
 							<label id="site" for=""></label><br>
 							<label id="simser" for=""></label><br>
 							<label id="purposed" for=""></label><br>

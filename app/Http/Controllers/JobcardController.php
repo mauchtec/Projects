@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jobcard;
 use App\Models\Site;
+use App\Models\Jobcard;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -36,17 +37,14 @@ public function submit(Request $request)
         'sitename'=>'required',
 
     ]);
-
     $signatureData = $request->input('trust');
-    $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-    $signatureData = str_replace(' ', '+', $signatureData);
-    $signatureImage = base64_decode($signatureData);
-    $fileName = time() . '.png';
-    Storage::disk('public')->put($fileName, $signatureImage);
-    //file_put_contents(public_path('images/'.$fileName), $signatureImage);
+    $decodedData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData));
+    
+    $fileName = uniqid() . '.png';
+    $filePath = public_path('images/' . $fileName);
+    file_put_contents($filePath, $decodedData);
 
-   // Storage::disk('public')->put($fileName, $signatureImage);
-    // Do something with the selected browser...
+  
     $jobcard = new Jobcard();
     $jobcard->tachname =$user->name;
     $jobcard->clientnumber = $request->phone;
@@ -88,7 +86,14 @@ public function submit(Request $request)
      */
     public function show(string $id)
     {
-        //
+     
+        $jobcard = Jobcard::where('id', $id)->first();
+        $datas = $jobcard->toArray();
+        //dd($datas);
+        $view = view('pdf_view', compact('datas'));
+        //dd($view);
+        $pdf = PDF::loadHTML($view);
+return $pdf->stream('pdf_file.pdf');
     }
 
     /**
