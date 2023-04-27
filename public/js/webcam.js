@@ -18,7 +18,7 @@ $(document).ready(function(){
                 
                 imageName = data.sim.image;
                 //console.log(data);
-                $('#image-container').html('<img src="storage/images/' + imageName + '">');
+                $('#image-container').html('<img src="images/' + imageName + '">');
                 $('#simserial').val(data.sim.Serial);
                 $('#id').val(data.sim.id);
                 //$('#edit-modal').modal('show');

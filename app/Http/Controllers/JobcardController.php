@@ -83,6 +83,19 @@ public function submit(Request $request)
 
     /**
      * Display the specified resource.
+     *  public function show(string $id)
+    *{
+     
+       * $jobcard = Jobcard::where('id', $id)->first();
+        *$datas = $jobcard->toArray();
+       * dd($datas);
+        *$view = view('pdf_view', compact('datas'));
+        *dd($view);
+        *$pdf = PDF::loadHTML($view);
+        
+*return $pdf->stream('pdf_file.pdf');
+    *}
+     * 
      */
     public function show(string $id)
     {
@@ -93,6 +106,7 @@ public function submit(Request $request)
         $view = view('pdf_view', compact('datas'));
         //dd($view);
         $pdf = PDF::loadHTML($view);
+        //$pdf->useBootstrap();
 return $pdf->stream('pdf_file.pdf');
     }
 
