@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Dompdf\Dompdf;
 
+
+use Dompdf\Options;
+use App\Models\User;
 
 use App\Models\Jobcard;
 use Illuminate\Http\Request;
-
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -20,9 +21,8 @@ class ReportController extends Controller
     public function index()
     {
         
-        $jobcard = Jobcard::where('id', 5)->first();
-        $datas = $jobcard->toArray();
-        Return view('pdf_view', compact('datas'));
+        
+        Return view('jobcard.text');
     }
 
     /**
@@ -46,7 +46,26 @@ return $pdf->download('pdf_file.pdf');
      */
     public function store(Request $request)
     {
-        //
+
+        // Check if a file was uploaded
+        if ($request->hasFile('sql_file')) {
+            // Get the uploaded file
+            $file = $request->file('sql_file');
+
+            // Get the contents of the file
+            $sql = file_get_contents($file->getPathname());
+
+            // Execute the SQL
+            DB::unprepared($sql);
+
+            // Return a response
+            return response()->json(['status' => 'success']);
+        } else {
+            // Return an error response
+            return response()->json(['status' => 'error', 'message' => 'No file uploaded']);
+        }
+
+
     }
 
     /**

@@ -83,8 +83,8 @@ Route::get('/jobcard/{id}',[JobcardController::class,'show']);
 
 
 
-Route::get('/generate-pdf', [ReportController::class, 'index']);
-Route::get('/done', [ReportController::class, 'create'])->name('done');
+Route::get('/upload', [ReportController::class, 'index']);
+Route::post('/done', [ReportController::class, 'store'])->name('done');
 
 
 
