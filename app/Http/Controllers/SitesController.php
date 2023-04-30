@@ -104,10 +104,12 @@ class SitesController extends Controller
      */
     public function destroy(string $id)
     {
-        //dd($id);
-        $site = Site::find($id);
-        $site->delete();
-
-        Return response()->json(['success'=>true]);
+        try {
+            $site = Site::findOrFail($id);
+            $site->delete();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 }

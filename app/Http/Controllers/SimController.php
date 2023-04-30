@@ -129,9 +129,9 @@ class SimController extends Controller
     {
         $sim = Sim::findOrFail($id);
 
-        dd($sim);
+        //dd($sim);
         Storage::delete('storage/images/'.$sim->image);
         $sim->delete();
-        //
+        return response()->json(['success' => true]);
     }
 }

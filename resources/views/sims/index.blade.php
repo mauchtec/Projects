@@ -177,10 +177,11 @@
 	}    
 	</style>
 @if(session('success'))
-  <div class="alert alert-success">
+  <div class="alert alert-success messages">
     {{ session('success') }}
   </div>
 @endif
+<div id="messages" class="text-dark"></div>
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
@@ -243,7 +244,7 @@
 								<td>
 									<a href="#" data-toggle="modal" data-target="#ViewSim"  data-id="{{$image->id}}"class="viewsim-btn"><i class="material-icons">&#xE417;</i></a>
 									<a href="#" data-toggle="modal" data-target="#EditSimcard" data-id="{{$image->id}}" class="editsim-btn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-									<a href="#" data-toggle="modal" data-target="#deletesim"   sim-id="{{$image->id}}" class="edit-btn deletesim"><i class="material-icons" style='color:red'>&#xE872;</i></a>
+									<a href="#" data-toggle="modal" data-target="#deletesim"   sim-id="{{$image->id}}" class="del-btn delsim-btn"><i class="material-icons" style='color:red'>&#xE872;</i></a>
 								</td>
 							</tr>
 							@endforeach
@@ -423,19 +424,22 @@
 
 <div id="deletesim" class="modal fade">
 	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
+		<div class="modal-content text-dark">
+			<form method="" action=""  id="delete-sim">
+				@method('DELETE')
+				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
+					<h4 class="modal-title">Delete Sim Card</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
+					<p id="simserial" class="simserial">Are you sure you want to delete Sim</p>
+					<input type="hidden" name="delid" id="delid">
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
+					<input type="button" class="btn btn-default " data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger deletesimcard" value="Delete">
 				</div>
 			</form>
 		</div>

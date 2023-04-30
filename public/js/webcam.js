@@ -90,6 +90,39 @@ $(document).ready(function(){
           $('#purposed').text("");
         });
       });
+
+      //Prep sim delition
+
+      $(document).ready(function(){
+        $(document).on('click', '.delsim-btn', function(e){
+            e.preventDefault();
+                     
+            var id = $(this).attr('sim-id');
+    
+            $.ajax({
+                type: 'GET',
+                enctype: 'multipart/form-data',
+                url:'/simedit/'+id,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                   
+                    
+                    $('.simserial').append('<b> Serial:</b> '+data.sim.Serial);
+                    $('#delid').val(data.sim.id);
+                   
+                    
+                   
+                    
+                    // Add other fields you want to edit
+                }
+            });
+            
+          $('#simserial').text("");
+          $('#delid').text("");
+         
+        });
+      });
     
 
 
@@ -135,32 +168,35 @@ $(document).ready(function(){
     
 
       //Delete site
- $(document).ready(function () {
-    $('.deletesim').click(function (e) { 
-        e.preventDefault();
-        var token = $("meta[name='csrf-token']").attr("content");
-        var id = $(this).attr('sim-id');
-        $.ajax({
+      $(document).ready(function () {
+        $('#delete-sim').submit(function (e) { 
+          e.preventDefault();
+          var token = $("meta[name='csrf-token']").attr("content");
+          var id = $('#delid').val();
+          var button = $(this);
+          button.prop('disabled', true);
+          $.ajax({
             type: "DELETE",
-            url: '/deletesim/'+id,   
-            data: { "id": id,
-                    "_token":token,
-                },      
-            
-            success: function (response) {
-                if (response.success) {
-                    alert(response.message);
-                    location.reload();
-                  } else {
-                    alert(response.message);
-                  }
+            url: '/deletesim/'+id,
+            data: {"_token":token},
+            success: function(response) {
+              if (response.success) {
+               
+                $('#deletesim'). modal('hide');
+                location.reload();
+                
+              }
             },
             error: function(xhr, status, error) {
-                alert(xhr.responseText);
-              }
+              $('#message').text(xhr.responseText);
+              button.prop('disabled', false);
+            }
+          });
         });
-        
-    });
-});
+      });
+      
+
+
+
 
   });

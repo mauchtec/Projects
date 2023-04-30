@@ -208,7 +208,7 @@
 					<div class="col-sm-6">
 						
 						<a href="#addsite" class="btn btn-success location " data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Site</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#deletesiteModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
 						<div class="search-box   ">
                             <i class="material-icons">&#xE8B6;</i>
                             <input type="text" name="searchsite" id="searchsite"  class="form-control" placeholder="Search&hellip;">
@@ -249,7 +249,7 @@
 						<td>
 							<a href="#"  class="view" title="View" data-toggle="modal" data-target="#exampleModal" site-id="{{ $site->id }}"><i class="material-icons">&#xE417;</i></a>
 							<a href="#" data-toggle="modal" data-target="#editsite" site-id="{{ $site->id }}" class="editsite" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="#deletesiteModal" class="deletesite" data-toggle="modal" site-del="{{ $site->id }}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
 					@endforeach
@@ -387,17 +387,19 @@
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deletesiteModal" class="modal fade">
 	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
+		<div class="modal-content text-dark">
+			<form id="delete-site">
+				@method('DELETE')
+				@csrf
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Employee</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<input type="hidden" name="siteid" id="siteid" value="{{ $site->id }}" data-id="{{ Auth::user()->name}}">
+					<p class="sitenames">Are you sure you want to delete this Site?</p>
+					<input type="hidden" name="siteid" id="siteid" >
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">

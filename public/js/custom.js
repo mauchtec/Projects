@@ -148,7 +148,7 @@ function showPosition(position) {
     });
   });
 
-
+//get ssims
 
   $(document).ready(function(){
     $(document).on('click', '.editsite', function(e){
@@ -234,35 +234,60 @@ function showPosition(position) {
     });
  });
 
-
- //Delete site
- $(document).ready(function () {
-    $('.deletesite').click(function (e) { 
+//Get sims for deletion
+$(document).ready(function(){
+    $('.deletesite').click(function (e){
         e.preventDefault();
-        var token = $("meta[name='csrf-token']").attr("content");
-        var id = $('#siteid').val();
+      
+        var id = $(this).attr('site-del');       
         $.ajax({
-            type: "DELETE",
-            url: '/deletesite/'+id,   
-            data: { "id": id,
-                    "_token":token,
-                },      
-            
-            success: function (response) {
-                if (response.success) {
-                    alert(response.message);
-                    location.reload();
-                  } else {
-                    alert(response.message);
-                  }
-            },
-            error: function(xhr, status, error) {
-                alert(xhr.responseText);
-              }
+            type: 'GET',
+            enctype: 'multipart/form-data',
+            url:'/site/'+id,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+                console.log(data.id);
+                $('#siteid').val(data.id);
+                $('.sitenames').append(data.sitename);
+                
+                
+                // Add other fields you want to edit
+            }
         });
-        
     });
-});
+  });
+ //Delete site
+ $(document).ready(function() {
+    $('#delete-site').click(function(e) {
+      e.preventDefault();
+      var token = $("meta[name='csrf-token']").attr("content");
+      var id = $('#siteid').val();
+     
+      $.ajax({
+        type: "DELETE",
+        url: '/deletesite/' + id,
+        data: {
+          "id": id,
+          "_token": token,
+        },
+        success: function(response) {
+            if (response.success) {
+               
+                $('#deletesiteModal'). modal('hide');
+                location.reload();
+                
+              }
+        },
+        error: function(xhr, status, error) {
+          alert(xhr.responseText);
+        }
+      });
+    });
+  });
+  
+
 
 
 
