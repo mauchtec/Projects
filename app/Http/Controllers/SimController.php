@@ -37,49 +37,37 @@ class SimController extends Controller
      */
     public function store(Request $request)
     {
-        
-       // dd($request->imaged);
-       $imageName =0;
-        $imageData = $request->imaged; // base64-encoded PNG image data
-            $pattern = '/^data:image\/(png|jpeg|jpg|gif);base64,/i';
-            $isBase64 = preg_match($pattern, $imageData);
-
-            if ($isBase64) {
-                dd($request);
-                $imageData = base64_decode(preg_replace($pattern, '', $imageData));
-                $image = imagecreatefromstring($imageData);
-                if ($image !== false) {
-                    $imageName  =  uniqid().'.png';
-                    $imagePath = public_path('images/'. $imageName);
-                    imagepng($image, $imagePath);
-                    imagedestroy($image);
-                    
-                }
-            } else {
-                $image = $imageData;
-                $image = $request->file('imaged');
-            $imageExtension = $image->extension();
-                // Generate a unique filename for the image
-
-                $imageName = time().'.'.$imageExtension;  
-                
-                $request->imaged->move(public_path('images'), $imageName);
-                
-               
+        $imageName = null;
+    
+        if ($request->hasFile('imaged')) {
+            $image = $request->file('imaged');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+        } elseif (preg_match('/^data:image\/(png|jpeg|jpg|gif);base64,/i', $request->imaged)) {
+            $imageData = base64_decode(preg_replace('/^data:image\/(png|jpeg|jpg|gif);base64,/i', '', $request->imaged));
+            $image = imagecreatefromstring($imageData);
+            if ($image !== false) {
+                $imageName = uniqid() . '.png';
+                $imagePath = public_path('images/' . $imageName);
+                imagepng($image, $imagePath);
+                imagedestroy($image);
             }
-                    
-                
-
-                $image = new Sim();
-                    $image->serial=$request->serial;
-                    $image->image = $imageName;
-                    $image->active =0;
-                    $image->user_id=auth()->id();
-                    $image->save();
-                
-                    return redirect()->back()->with('success', 'Image uploaded successfully.');
-            
-                }
+        }
+    
+        if ($imageName) {
+            $image = new Sim();
+            $image->serial = $request->serial;
+            $image->image = $imageName;
+            $image->active = 0;
+            $image->user_id = auth()->id();
+            $image->save();
+    
+            return redirect()->back()->with('success', 'Image uploaded successfully.');
+        }
+    
+        return redirect()->back()->with('error', 'No image was uploaded.');
+    }
+    
 
     /**
      * Display the specified resource.
