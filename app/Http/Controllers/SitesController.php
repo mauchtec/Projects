@@ -72,7 +72,7 @@ class SitesController extends Controller
     public function edit(string $id)
     {
        
-        $site = Site::find($id);
+        $site = Site::find($id)->first();
         return response()->json($site);
     }
 
@@ -104,6 +104,7 @@ class SitesController extends Controller
      */
     public function destroy(string $id)
     {
+        //dd($id);
         $site = Site::find($id);
         $site->delete();
 

@@ -138,6 +138,9 @@ function showPosition(position) {
             success: function (response) {
                 $('#addsite').modal('hide');
                 location.reload();
+                var message = response.statuss;
+                console.log(message);
+        $("#message").text(message);
                 
             }
             

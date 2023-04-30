@@ -7,7 +7,7 @@ use App\Models\Jobcard;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+
 
 class JobcardController extends Controller
 {
@@ -103,11 +103,13 @@ public function submit(Request $request)
         $jobcard = Jobcard::where('id', $id)->first();
         $datas = $jobcard->toArray();
         //dd($datas);
-        $view = view('pdf_view', compact('datas'));
+        $view = view('pdfview', compact('datas'));
         //dd($view);
         $pdf = PDF::loadHTML($view);
         //$pdf->useBootstrap();
-return $pdf->stream('pdf_file.pdf');
+        $filename =$datas ['sitename']. '.pdf';
+        //dd($filename);
+return $pdf->stream($filename);
     }
 
     /**

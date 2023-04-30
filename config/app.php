@@ -162,6 +162,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+         
         Barryvdh\Snappy\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,

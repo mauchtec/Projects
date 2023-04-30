@@ -9,6 +9,7 @@ use App\Http\Controllers\SimController;
 use App\Http\Controllers\SitesController;
 use Illuminate\Support\Facades\Route;
 
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\URL;
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +86,11 @@ Route::get('/jobcard/{id}',[JobcardController::class,'show']);
 
 Route::get('/upload', [ReportController::class, 'index']);
 Route::post('/done', [ReportController::class, 'store'])->name('done');
+
+Route::get('/generate-pdf', function () {
+    $pdf = SnappyPDF::loadView('jobcard.text');
+    return $pdf->download('document.pdf');
+});
 
 
 

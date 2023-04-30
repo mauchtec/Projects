@@ -456,7 +456,7 @@
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="trust" id="trust">
-                            <label for="description">Fault Report</label>
+                            <label for="description">Fault Report <span class="text-danger">rememmber to put (.) on every line</span></label>
                             
                             <textarea name="description" id="description" cols="30" rows="5" class="form-control input-sm"></textarea>
                         </div> 
