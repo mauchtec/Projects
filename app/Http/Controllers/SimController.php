@@ -38,7 +38,7 @@ class SimController extends Controller
     public function store(Request $request)
     {
         
-       // dd($request);
+       dd($request->imaged);
        $imageName =0;
         $imageData = $request->imaged; // base64-encoded PNG image data
             $pattern = '/^data:image\/(png|jpeg|jpg|gif);base64,/i';
