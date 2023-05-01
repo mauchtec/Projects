@@ -238,18 +238,18 @@
 						
 						<td>{{$site->sitename }}</td>
 							<td>{{$site->siteaddress}}</td>
-							<td > <a href="mailto:{{$site->email}}"><i class="fa fa-envelope" aria-hidden="true"></i></a> </td>
+							<td > <a href="mailto:{{$site->email}}"><i class="fa fa-envelope" style="color:#190fad" aria-hidden="true"></i></a> </td>
 					
 						<td> 
 							<a href="tel:+27{{$site->sitenumber }}"><i class="fa fa-phone" aria-hidden="true"></i></a>
-							<a href="https://api.whatsapp.com/send?phone=27{{$site->sitenumber }}"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+							<a href="https://api.whatsapp.com/send?phone=27{{$site->sitenumber }}"><i class="fa fa-whatsapp" style="color:#25D366" aria-hidden="true"></i></a>
 						</td>
 						<td>  <a href="https://www.google.com/search?q={{$site->coodinates }}"><i class="fa fa-map-marker" aria-hidden="true"></i></i></a> </td>
 						<td> <a href="{{$site->link }}"><i class="fa fa-link" aria-hidden="true"></i></a> </td>
 						<td>
 							<a href="#"  class="view" title="View" data-toggle="modal" data-target="#exampleModal" site-id="{{ $site->id }}"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" data-toggle="modal" data-target="#editsite" site-id="{{ $site->id }}" class="editsite" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-							<a href="#deletesiteModal" class="deletesite" data-toggle="modal" site-del="{{ $site->id }}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="#" data-toggle="modal" data-target="#editsite" site-id="{{ $site->id }}" class="editsite " title="Edit" data-toggle="modal"><i class="material-icons">&#xE254;</i></a>
+							<a href="#deletesiteModal" class="deletesite" data-toggle="modal" site-del="{{ $site->id }}"><i class="material-icons"  title="Delete" style="color:red" >&#xE872;</i></a>
 						</td>
 					</tr>
 					@endforeach
@@ -262,7 +262,7 @@
 <!-- Create Modal HTML -->
 <div id="addsite" class="modal fade">
 	<div class="modal-dialog">
-		<div class="modal-content text-dark">
+		<div class="modal-content text-dark text-sm">
 			<form method="post" action="{{'/sites'}}">
 				@csrf
 				<div class="modal-header">						
@@ -289,13 +289,43 @@
 						</div>
 					</div>
 					<div class="form-group">
-						
+						<div class="row">
+							<div class="col">
 								<input type="text" class="form-control" name="coodinates" id="coodinates" required placeholder="Enter co-odinates">
-				
+							</div>
+							
+							<div class="col">
+							
+								<select name="platform" id="platform" class="form-select form-control"  required>
+									<option selected >Select Platfom</option>
+									<option value="OpenItem">OpenItem</option>
+									<option value="GateBook">GateBook/Onespace</option>
+									<option value="Receptionist">Receptionist</option>
+									<option value="Suppliers">Suppliers/Installers</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						
+						<div class="row">
+							<div class="col">
 						<input type="email" class="form-control" name="email" id="email" required placeholder="Enter site email address">
+							</div>
+							<div class="col">
+								<select name="group" id="group" class="form-select form-control"  required>
+									<option selected >Select Group</option>
+									<option value="GrowthPoint">GrowthPoint</option>
+									<option value="API">API</option>
+									<option value="FederalGroup">FederalGroup</option>
+									<option value="Imvula">Imvula</option>
+									<option value="Fidelity">Fidelity</option>
+									<option value="Bidvest">Bidvest</option>
+									<option value="Other">Other</option>
+								</select>
+							</div>
+						</div>	
+					
 					</div>
 					<div class="form-group">
 						
@@ -404,7 +434,7 @@
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger deletesite" value="Delete">
+					<input type="submit" class="btn btn-danger "  id="deletesite" value="Delete">
 				</div>
 			</form>
 		</div>

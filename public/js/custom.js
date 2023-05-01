@@ -260,7 +260,7 @@ $(document).ready(function(){
   });
  //Delete site
  $(document).ready(function() {
-    $('#delete-site').click(function(e) {
+    $('#deletesite').click(function(e) {
       e.preventDefault();
       var token = $("meta[name='csrf-token']").attr("content");
       var id = $('#siteid').val();

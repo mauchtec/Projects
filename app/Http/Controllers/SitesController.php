@@ -33,7 +33,7 @@ class SitesController extends Controller
      */
     public function store(Request $request)
     {
-    
+        dd($request);
         Site::create([
             'user_id'=>auth()->id(),
             'sitename'=>$request->sitename,
@@ -44,6 +44,8 @@ class SitesController extends Controller
             'siteaddress'=>$request->address,
             'notes'=>$request->notes,
             'link' =>$request->link,
+            'group' =>$request->group,
+            'platform' =>$request->platform,
         ]);
 
         return response()->json(['statuss'=>'success']);
