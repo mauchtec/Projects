@@ -30,11 +30,11 @@
 }
 
 .table-responsive {
-    margin: 30px 0;
+    margin: 10px 0;
 }
 .table-wrapper {
 	background: #fff;
-	padding: 20px 25px;
+	padding: 5px 5px;
 	border-radius: 3px;
 	min-width: 1000px;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -75,27 +75,7 @@
 	float: left;
 	margin-top: 2px;
 }
-	.search-box {
-		position: relative;        
-		float: right;
-	}
-	.search-box input {
-		height: 34px;
-		border-radius: 20px;
-		padding-left: 35px;
-		border-color: #ddd;
-		box-shadow: none;
-	}
-	.search-box input:focus {
-		border-color: #3FBAE4;
-	}
-	.search-box i {
-		color: #a0a5b1;
-		position: absolute;
-		font-size: 19px;
-		top: 8px;
-		left: 10px;
-	}
+
 	table.table tr th, table.table tr td {
 		border-color: #e9e9e9;
 	}
@@ -217,10 +197,12 @@
 				</div>
 			</div>
 			<table class="table table-striped table-hover table-bordered table-sm table-responsive" id="sitestable">
-				<thead>
+				<thead class="text-white" style="background-color: #435d7d">
 					
 						<th>Site-Name <i class="fa fa-sort"></i></th>
 						<th>Address<i class="fa fa-sort"></i></th>
+						<th>Platform</th>
+						<th>Group</th>
 						<th>Email</th>
 						<th>Phone/WhatsApp</th>
 						<th>Co-Ordinates</th>
@@ -238,6 +220,8 @@
 						
 						<td>{{$site->sitename }}</td>
 							<td>{{$site->siteaddress}}</td>
+							<td>{{$site->platform}}</td>
+							<td>{{$site->group}}</td>
 							<td > <a href="mailto:{{$site->email}}"><i class="fa fa-envelope" style="color:#190fad" aria-hidden="true"></i></a> </td>
 					
 						<td> 
@@ -248,7 +232,7 @@
 						<td> <a href="{{$site->link }}"><i class="fa fa-link" aria-hidden="true"></i></a> </td>
 						<td>
 							<a href="#"  class="view" title="View" data-toggle="modal" data-target="#exampleModal" site-id="{{ $site->id }}"><i class="material-icons">&#xE417;</i></a>
-							<a href="#" data-toggle="modal" data-target="#editsite" site-id="{{ $site->id }}" class="editsite " title="Edit" data-toggle="modal"><i class="material-icons">&#xE254;</i></a>
+							<a href="#" data-toggle="modal" data-target="#editsite" site-edit="{{ $site->id }}" class="editsite " title="Edit" data-toggle="modal"><i class="material-icons">&#xE254;</i></a>
 							<a href="#deletesiteModal" class="deletesite" data-toggle="modal" site-del="{{ $site->id }}"><i class="material-icons"  title="Delete" style="color:red" >&#xE872;</i></a>
 						</td>
 					</tr>
@@ -383,14 +367,41 @@
 						</div>
 					</div>
 					<div class="form-group">
-						
+						<div class="row">
+							<div class="col">
 								<input type="text" class="form-control" name="coodinate" id="coodinate" required placeholder="Enter co-odinates">
-				
+							</div>
+							<div class="col">
+								<select name="platforms" id="platforms" class="form-select form-control"  required>
+									<option selected >Select Platfom</option>
+									<option value="OpenItem">OpenItem</option>
+									<option value="GateBook">GateBook/Onespace</option>
+									<option value="Receptionist">Receptionist</option>
+									<option value="Suppliers">Suppliers/Installers</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						
-						<input type="email" class="form-control" name="emails" id="emails" required placeholder="Enter site email address">
-					</div>
+						<div class="row">
+							<div class="col">
+								<input type="email" class="form-control" name="emails" id="emails" required placeholder="Enter site email address">
+							</div>
+							<div class="col">
+								<select name="groups" id="groups"  class="form-select form-control"  required>
+									<option selected >Select Group</option>
+									<option value="GrowthPoint">GrowthPoint</option>
+									<option value="API">API</option>
+									<option value="FederalGroup">FederalGroup</option>
+									<option value="Imvula">Imvula</option>
+									<option value="Fidelity">Fidelity</option>
+									<option value="Bidvest">Bidvest</option>
+									<option value="Other">Other</option>
+								</select>
+							</div>
+						</div>
+				</div>
 					<div class="form-group">
 						
 						<input type="address" class="form-control" name="addres" id="addres" required placeholder="Enter site address">

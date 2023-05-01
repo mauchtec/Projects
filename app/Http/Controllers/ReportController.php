@@ -46,7 +46,8 @@ return $pdf->download('pdf_file.pdf');
      */
     public function store(Request $request)
     {
-
+        
+        //dd($request);
         // Check if a file was uploaded
         if ($request->hasFile('sql_file')) {
             // Get the uploaded file

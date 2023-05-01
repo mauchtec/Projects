@@ -117,6 +117,8 @@ function showPosition(position) {
         var coodinates = $('#coodinates').val();
         var email = $('#email').val();
         var link = $('#link').val();
+        var platform = $('#platform').val();
+        var group = $('#group').val();
         var address = $('#address').val();
         var notes = $('#notes').val();
         $.ajax({
@@ -125,6 +127,8 @@ function showPosition(position) {
             data: {
                 user_id:user_id,
                 link:link,
+                group:group,
+                platform:platform,
                 sitename:sitename,
                 contactperson:contactperson,
                 sitename:sitename,
@@ -153,10 +157,8 @@ function showPosition(position) {
   $(document).ready(function(){
     $(document).on('click', '.editsite', function(e){
         e.preventDefault();
-       
-        var id = $(this).attr('site-id');
-
-       
+      
+        var id = $(this).attr('site-edit');    
         $.ajax({
             type: 'GET',
             enctype: 'multipart/form-data',
@@ -164,7 +166,7 @@ function showPosition(position) {
             contentType: false,
             processData: false,
             success: function(data) {
-               
+                $('#updatesite')[0].reset();                
                 $('#site_id').val(data.id);
                 $('#sitenames').val(data.sitename);
                 $('#contactpersons').val(data.contactperson);
@@ -313,6 +315,8 @@ $(document).ready(function () {
                 $.each(response, function (indexInArray, site) { 
                     $('#sitestable tbody').append('<tr><td>'+site.sitename+'</td>'
                     +'<td>'+site.siteaddress+'</td>'
+                    +'<td>'+site.platform+'</td>'
+                    +'<td>'+site.group+'</td>'
                     +'<td><a href="mailto:' +site.email+'"><i class="fa fa-envelope" aria-hidden="true"></i></a></td>'
                    
                     

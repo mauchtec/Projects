@@ -33,11 +33,13 @@ class SitesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //dd($request);
         Site::create([
             'user_id'=>auth()->id(),
             'sitename'=>$request->sitename,
             'contactperson'=>$request->contactperson,
+            'group'=>$request->group,
+            'platform'=>$request->platform,
             'sitenumber'=>$request->sitenumber,
             'coodinates'=>$request->coodinates,
             'email'=>$request->email,
@@ -63,6 +65,8 @@ class SitesController extends Controller
         ->orWhere('contactperson', 'LIKE', '%'.$searchsite.'%')
         ->orWhere('email', 'LIKE', '%'.$searchsite.'%')
         ->orWhere('sitenumber', 'LIKE', '%'.$searchsite.'%')
+        ->orWhere('platform', 'LIKE', '%'.$searchsite.'%')
+        ->orWhere('group', 'LIKE', '%'.$searchsite.'%')
         ->get();
         return response()->json($sites);
         //
@@ -74,7 +78,7 @@ class SitesController extends Controller
     public function edit(string $id)
     {
        
-        $site = Site::find($id)->first();
+        $site = Site::find($id);
         return response()->json($site);
     }
 
@@ -84,7 +88,6 @@ class SitesController extends Controller
     public function update(Request $request, string $id)
     {
      
-       
         $data = Site::find($id);
         
         $data->sitename = $request->input('sitenames');
@@ -95,6 +98,8 @@ class SitesController extends Controller
         $data->coodinates = $request->input('coodinate');
         $data->siteaddress = $request->input('addres');
         $data->link = $request->input('links');
+        $data->platform = $request->input('platforms');
+        $data->group = $request->input('groups');
         $data->notes = $request->input('note');
         $data->save();
         return response()->json(['success' => true]);
