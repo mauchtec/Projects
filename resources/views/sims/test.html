@@ -1,112 +1,157 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Drag and Drop Example for Items in Three Columns</title>
+    <head>
+    </head> 
     <style>
-      .column {
-        width: 30%;
-        height: 300px;
-        background-color: lightgray;
-        margin: 10px;
-        padding: 10px;
-        display: inline-block;
-        vertical-align: top;
-      }
-
-
-      .item {
-        width: 90%;
-        height: 50px;
-        background-color: blue;
-        color: white;
-        text-align: center;
-        line-height: 50px;
-        margin: 5px auto;
-        cursor: move;
-      }
-
-      .active {
-        border: dashed 2px red;
-      }
-
-      .column:nth-child(1) {
-  background-color: lightgray;
+    /* (A) LIST STYLES */
+.slist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.slist li {
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #dfdfdf;
+  background: #f5f5f5;
 }
 
-.column:nth-child(2) {
-  background-color: lightblue;
+/* (B) DRAG-AND-DROP HINT */
+.slist li.hint {
+  border: 1px solid #ffc49a;
+  background: #feffb4;
+}
+.slist li.active {
+  border: 1px solid #ffa5a5;
+  background: #ffe7e7;
 }
 
-.column:nth-child(3) {
-  background-color: lightgreen;
+/* (X) DOES NOT MATTER */
+/* PAGE & BODY */
+* {
+  font-family: arial, sans-serif;
+  box-sizing: border-box;
 }
+body {
+  display: flex;
+  align-items: center; justify-content: center;
+  min-height: 100vh;
+  background-image: url(https://images.unsplash.com/photo-1629555410224-3bd6ce8340b0?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MjczNzA5OQ&ixlib=rb-1.2.1&q=85);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* WIDGET */
+.widget-wrap {
+  min-width: 600px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* SVG */
+#sort {
+  width: 100%; height:100px;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 512 512" width="100" xmlns="http://www.w3.org/2000/svg"><path d="M304 416h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-128-64h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352zm256-192H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-64 128H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM496 32H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z" /></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* FOOTER */
+#code-boxx {
+  font-weight: 600;
+  margin-top: 50px;
+}
+#code-boxx a {
+  display: inline-block;
+  padding: 5px;
+  text-decoration: none;
+  background: #b90a0a;
+  color: #fff;
+}
+#code-boxx , h1 { text-align: center; }
     </style>
   </head>
   <body>
-    <div class="column" id="column1" ondragover="allowDrop(event)" ondrop="drop(event)">
-                    
-        <div class="d-flex align-items-center justify-content-center">
-            <span class="badge bg-danger">Open</span>
-          </div>
-        <div class="item" id="item1" draggable="true" ondragstart="drag(event)">Item 1</div>
-        <div class="item" id="item2" draggable="true" ondragstart="drag(event)">Item 2</div>
-      </div>
-      <div class="column" id="column2" ondragover="allowDrop(event)" ondrop="drop(event)">
-        <div class="d-flex align-items-center justify-content-center">
-            <span class="badge bg-primary">Pending</span>
-          </div>
-       
-        <div class="item"  id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
-        <div class="item" id="item4" draggable="true" ondragstart="drag(event)">Item 4</div>
-      </div>
-      <div class="column" id="column3" ondragover="allowDrop(event)" ondrop="drop(event)">
-        <div class="d-flex align-items-center justify-content-center">
-            <span class="badge bg-success">Resolved</span>
-          </div>
-        
-        <div class="item" id="item5" draggable="true" ondragstart="drag(event)">Item 5</div>
-        <div class="item" id="item6" draggable="true" ondragstart="drag(event)">Item 6</div>
-      </div>
-</div>
-
-    <script>
-        let draggedItem = null;
   
-        function allowDrop(event) {
-          event.preventDefault();
-          event.currentTarget.classList.add('active');
+    <div class="widget-wrap">
+      <div id="sort"></div>
+      <h1>DRAG-N-DROP SORTABLE LIST</h1>
+    
+      <ul id="sortlist">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+        <li>Forth</li>
+        <li>Fifth</li>
+      </ul>
+      
+      
+    
+    </div>    
+    <script>
+      function slist (target) {
+  // (A) SET CSS + GET ALL LIST ITEMS
+  target.classList.add("slist");
+  let items = target.getElementsByTagName("li"), current = null;
+
+  // (B) MAKE ITEMS DRAGGABLE + SORTABLE
+  for (let i of items) {
+    // (B1) ATTACH DRAGGABLE
+    i.draggable = true;
+
+    // (B2) DRAG START - YELLOW HIGHLIGHT DROPZONES
+    i.ondragstart = e => {
+      current = i;
+      for (let it of items) {
+        if (it != current) { it.classList.add("hint"); }
+      }
+    };
+
+    // (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
+    i.ondragenter = e => {
+      if (i != current) { i.classList.add("active"); }
+    };
+
+    // (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
+    i.ondragleave = () => i.classList.remove("active");
+
+    // (B5) DRAG END - REMOVE ALL HIGHLIGHTS
+    i.ondragend = () => { for (let it of items) {
+      it.classList.remove("hint");
+      it.classList.remove("active");
+    }};
+
+    // (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
+    i.ondragover = e => e.preventDefault();
+
+    // (B7) ON DROP - DO SOMETHING
+    i.ondrop = e => {
+      e.preventDefault();
+      if (i != current) {
+        let currentpos = 0, droppedpos = 0;
+        for (let it=0; it<items.length; it++) {
+          if (current == items[it]) { currentpos = it; }
+          if (i == items[it]) { droppedpos = it; }
         }
-
-
-        function drop(event) {
-            event.preventDefault();
-          event.currentTarget.classList.remove('active');
-          event.currentTarget.appendChild(draggedItem);
-          const itemId = event.target.id;
-          event.dataTransfer.setData('text/plain', itemId);
-const item = document.getElementById(itemId);
-item.style.backgroundColor = '';
-if (event.currentTarget.id === 'column1') {
-item.style.backgroundColor = '';
-item.style.backgroundColor = 'red';
-} else if (event.currentTarget.id === 'column2') {
-item.style.backgroundColor = '';
-item.style.backgroundColor = 'green';
-} else if (event.currentTarget.id === 'column3') {
-item.style.backgroundColor = '';
-alert("cool");
-item.style.backgroundColor = 'black';
+        if (currentpos < droppedpos) {
+          i.parentNode.insertBefore(current, i.nextSibling);
+        } else {
+          i.parentNode.insertBefore(current, i);
+        }
+      }
+    };
+  }
 }
 
-event.currentTarget.appendChild(item);
-}
-
-        function drag(event) {
-          draggedItem = event.target;
-        }
-
-     
-
+// (C) INIT ON PAGE LOAD
+window.addEventListener("DOMContentLoaded", () => {
+  slist(document.getElementById("sortlist"));
+});
+       
       </script>
+
+
   </body>
 </html>

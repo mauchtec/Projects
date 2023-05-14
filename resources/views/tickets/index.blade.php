@@ -1,7 +1,20 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    
+    #div1, #div2,#div3 {
+        width: 30%;
+      height: auto;
+     
+      margin: 10px;
+      padding: 10px;
+      display: inline-block;
+      vertical-align: top;
+
+
+  float: left;
+  
+  border: 1px solid black;
+}
 .search-box {
     position: relative;        
     float: right;
@@ -259,6 +272,17 @@ table.table .avatar {
                     <div class="item" id="item5" draggable="true" ondragstart="drag(event)">Item 5</div>
                     <div class="item" id="item6" draggable="true" ondragstart="drag(event)">Item 6</div>
                   </div>
+                  <hr>
+
+
+                  <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+                    <img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+                    <div class="item"  id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
+                    <div class="item" id="item4" draggable="true" ondragstart="drag(event)">Item 4</div> 
+                </div>
+                  <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                  <div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
        
    
@@ -449,6 +473,23 @@ table.table .avatar {
 
 
 <script>
+
+
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+/////////////////////////////////////////////
     let draggedItem = null;
 
     function allowDrop(event) {
