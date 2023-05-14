@@ -448,26 +448,45 @@ table.table .avatar {
   
 
 
-            <script>
-                let draggedItem = null;
-          
-                function allowDrop(event) {
-                  event.preventDefault();
-                  event.currentTarget.classList.add('active');
-                }
+<script>
+    let draggedItem = null;
 
+    function allowDrop(event) {
+        event.preventDefault();
+        event.currentTarget.classList.add('active');
+    }
 
-                function drop(event) {
-                    event.preventDefault();
-                  event.currentTarget.classList.remove('active');
-                  event.currentTarget.appendChild(draggedItem);
-                }
+    function drop(event) {
+        event.preventDefault();
+        event.currentTarget.classList.remove('active');
+        event.currentTarget.appendChild(draggedItem);
+    }
 
-                function drag(event) {
-                  draggedItem = event.target;
-                }
+    function drag(event) {
+        draggedItem = event.target;
+    }
 
-             
+    function touchStart(event) {
+        draggedItem = event.target;
+        event.preventDefault();
+    }
 
-              </script>
+    function touchMove(event) {
+        event.preventDefault();
+        draggedItem.style.left = event.touches[0].clientX - draggedItem.offsetWidth / 2 + 'px';
+        draggedItem.style.top = event.touches[0].clientY - draggedItem.offsetHeight / 2 + 'px';
+    }
+
+    function touchEnd(event) {
+        event.preventDefault();
+        const dropZone = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        if (dropZone && dropZone.classList.contains('column')) {
+            dropZone.appendChild(draggedItem);
+        }
+        draggedItem.style.left = '';
+        draggedItem.style.top = '';
+        draggedItem = null;
+    }
+</script>
+    
 @endsection
