@@ -222,7 +222,7 @@ body {
 <body>
 	
 	<nav class="navbar navbar-expand-lg navbar-light">
-		<a href="#" class="navbar-brand">Brand<b>Name</b></a>  		
+		<a href="/" class="navbar-brand"><b>CloudSell Africa</b></a>  		
 		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -231,20 +231,11 @@ body {
 			<div class="navbar-nav">
 				<li class="{{ Request::is('/') ? 'active' : '' }}" ><a href="/" class="nav-item nav-link">Home</a></li>
 				<li class="{{ Request::is('sites') ? 'active' : '' }}" ><a href="{{route('sites')}}" class="nav-item nav-link">Sites</a></li>			
-				<div class="nav-item dropdown">
-					<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
-					<div class="dropdown-menu">					
-						<a href="#" class="dropdown-item">Web Design</a>
-						<a href="#" class="dropdown-item">Web Development</a>
-						<a href="#" class="dropdown-item">Graphic Design</a>
-						<a href="#" class="dropdown-item">Digital Marketing</a>
-					</div>
-				</div>
-				
+								
 				<li  class="{{ Request::is('sims') ? 'active' : '' }}"><a  href="{{route('sims')}}" class="nav-item nav-link ">SimCards</a></li>
 		
 				<a href="{{'/jobcard'}}" class="nav-item nav-link">JobCard</a>
-				<a href="#" class="nav-item nav-link">Contact</a>
+				<a href="{{'/ticket'}}" class="nav-item nav-link">Ticket</a>
 			</div>
 			<form class="navbar-form form-inline ml-auto">
 				<div class="input-group search-box">
@@ -256,7 +247,7 @@ body {
 				
 		</div>
 		@auth
-				<a href="#" class="nav-item nav-link active">{{Auth::user()->name}}</a>
+				<a href="#" class="nav-item nav-link ">{{Auth::user()->name}}</a>
 				
 				<a href="#" id="logout-btn" class="nav-item nav-link ">logout</a>
 

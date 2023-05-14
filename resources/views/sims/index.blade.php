@@ -368,9 +368,14 @@
 					</div>
 
 					<div class="form-group">
-						<select  name="sitenames" id="sitenames" class="form-select form-control" >
-							<option selected >Choose a site</option>
-						</select>
+							<div class="form-group">
+                            <label for="browser" class="form-label">Choose a site from the list:</label>
+                            <input class="form-control" list="sitename" name="sitename" id="fruit">
+                            <datalist id="sitename">
+                            
+                            </datalist>
+                           
+                        </div>
 						
 					</div>
 									

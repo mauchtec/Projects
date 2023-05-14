@@ -157,8 +157,8 @@ function showPosition(position) {
   $(document).ready(function(){
     $(document).on('click', '.editsite', function(e){
         e.preventDefault();
-      
-        var id = $(this).attr('site-edit');    
+        var id = $(this).attr('site-edit');   
+        console.log(id); 
         $.ajax({
             type: 'GET',
             enctype: 'multipart/form-data',
@@ -236,12 +236,13 @@ function showPosition(position) {
     });
  });
 
-//Get sims for deletion
+//Get site for deletion
 $(document).ready(function(){
     $('.deletesite').click(function (e){
         e.preventDefault();
-      
-        var id = $(this).attr('site-del');       
+      alert();
+        var id = $(this).attr('site-del');     
+        console.log(id);  
         $.ajax({
             type: 'GET',
             enctype: 'multipart/form-data',
@@ -326,8 +327,8 @@ $(document).ready(function () {
                     +'<td> <a href="https://www.google.com/search?q='+site.coodinates+'"><i class="fa fa-map-marker" aria-hidden="true"></i></i></a></td>'
                     +'<td> <a href="'+site.link+'"><i class="fa fa-link" aria-hidden="true"></i></a></td>'
                     +'<td> <a href="#"  class="view" title="View" data-toggle="modal" data-target="#exampleModal" site-id="'+site.id+'"><i class="material-icons">&#xE417;</i></a>'
-                    +'<a href="#" data-toggle="modal" data-target="#editsite" site-id="'+site.id+'" class="editsite" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'
-                    +'<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td></tr>');
+                    +'<a href="#" data-toggle="modal" data-target="#editsite" site-edit="'+site.id+'" class="editsite" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'
+                    +'<a href="" data-toggle="modal" data-target="#deletesiteModal" site-del="'+site.id+'" class="deletesite" title="Delete" data-toggle="tooltip"><i class="material-icons"  >&#xE872;</i></a></td></tr>');
                 });
                 
             }

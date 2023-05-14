@@ -233,7 +233,7 @@
 						<td>
 							<a href="#"  class="view" title="View" data-toggle="modal" data-target="#exampleModal" site-id="{{ $site->id }}"><i class="material-icons">&#xE417;</i></a>
 							<a href="#" data-toggle="modal" data-target="#editsite" site-edit="{{ $site->id }}" class="editsite " title="Edit" data-toggle="modal"><i class="material-icons">&#xE254;</i></a>
-							<a href="#deletesiteModal" class="deletesite" data-toggle="modal" site-del="{{ $site->id }}"><i class="material-icons"  title="Delete" style="color:red" >&#xE872;</i></a>
+							<a href="#" data-target="#deletesiteModal" class="deletesite" id="deletesite" data-toggle="modal" site-del="{{ $site->id }}"><i class="material-icons"  title="Delete" style="color:red" >&#xE872;</i></a>
 						</td>
 					</tr>
 					@endforeach

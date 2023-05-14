@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\JobcardController;
-use App\Http\Controllers\ReportController;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Route;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\Http\Controllers\SimController;
 use App\Http\Controllers\SitesController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\JobcardController;
 
-use Barryvdh\Snappy\Facades\SnappyPdf;
-use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,6 +93,8 @@ Route::get('/generate-pdf', function () {
     return $pdf->download('document.pdf');
 });
 
+
+Route::get('/ticket',[TicketController::class, 'index']);
 
 
 

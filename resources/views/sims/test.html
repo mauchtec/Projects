@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drag and Drop Example for Items in Three Columns</title>
+    <style>
+      .column {
+        width: 30%;
+        height: 300px;
+        background-color: lightgray;
+        margin: 10px;
+        padding: 10px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+
+      .item {
+        width: 90%;
+        height: 50px;
+        background-color: blue;
+        color: white;
+        text-align: center;
+        line-height: 50px;
+        margin: 5px auto;
+        cursor: move;
+      }
+
+      .active {
+        border: dashed 2px red;
+      }
+
+      .column:nth-child(1) {
+  background-color: lightgray;
+}
+
+.column:nth-child(2) {
+  background-color: lightblue;
+}
+
+.column:nth-child(3) {
+  background-color: lightgreen;
+}
+    </style>
+  </head>
+  <body>
+    <div class="column" id="column1" ondragover="allowDrop(event)" ondrop="drop(event)">
+                    
+        <div class="d-flex align-items-center justify-content-center">
+            <span class="badge bg-danger">Open</span>
+          </div>
+        <div class="item" id="item1" draggable="true" ondragstart="drag(event)">Item 1</div>
+        <div class="item" id="item2" draggable="true" ondragstart="drag(event)">Item 2</div>
+      </div>
+      <div class="column" id="column2" ondragover="allowDrop(event)" ondrop="drop(event)">
+        <div class="d-flex align-items-center justify-content-center">
+            <span class="badge bg-primary">Pending</span>
+          </div>
+       
+        <div class="item"  id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
+        <div class="item" id="item4" draggable="true" ondragstart="drag(event)">Item 4</div>
+      </div>
+      <div class="column" id="column3" ondragover="allowDrop(event)" ondrop="drop(event)">
+        <div class="d-flex align-items-center justify-content-center">
+            <span class="badge bg-success">Resolved</span>
+          </div>
+        
+        <div class="item" id="item5" draggable="true" ondragstart="drag(event)">Item 5</div>
+        <div class="item" id="item6" draggable="true" ondragstart="drag(event)">Item 6</div>
+      </div>
+</div>
+
+    <script>
+        let draggedItem = null;
+  
+        function allowDrop(event) {
+          event.preventDefault();
+          event.currentTarget.classList.add('active');
+        }
+
+
+        function drop(event) {
+            event.preventDefault();
+          event.currentTarget.classList.remove('active');
+          event.currentTarget.appendChild(draggedItem);
+          const itemId = event.target.id;
+          event.dataTransfer.setData('text/plain', itemId);
+const item = document.getElementById(itemId);
+item.style.backgroundColor = '';
+if (event.currentTarget.id === 'column1') {
+item.style.backgroundColor = '';
+item.style.backgroundColor = 'red';
+} else if (event.currentTarget.id === 'column2') {
+item.style.backgroundColor = '';
+item.style.backgroundColor = 'green';
+} else if (event.currentTarget.id === 'column3') {
+item.style.backgroundColor = '';
+alert("cool");
+item.style.backgroundColor = 'black';
+}
+
+event.currentTarget.appendChild(item);
+}
+
+        function drag(event) {
+          draggedItem = event.target;
+        }
+
+     
+
+      </script>
+  </body>
+</html>

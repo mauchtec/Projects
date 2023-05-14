@@ -23,11 +23,13 @@ $(document).ready(function(){
                 $('#id').val(data.sim.id);
                 //$('#edit-modal').modal('show');
                 $('#sites').val(data.sites.sitename);
+                const dataList = document.querySelector('#sitename');
                 $.each(data.sites, function (indexInArray, site) {
-                    $('#sitenames').append('<option value="' +site.sitename+'">' +site.sitename+'</option>');
-                    
                    
-                    console.log(site.sitename);
+                    const option = document.createElement('option');
+                    option.value = site.sitename;
+                    dataList.appendChild(option);
+                   
                 });
                 
                 // Add other fields you want to edit
