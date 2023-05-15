@@ -489,6 +489,31 @@ function drop(ev) {
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
 }
+
+function allowTouchDrop(ev) {
+  ev.preventDefault();
+}
+
+function touchStart(ev) {
+  ev.preventDefault();
+  var touch = ev.touches[0];
+  ev.dataTransfer.setData("text", touch.target.id);
+}
+
+function touchEnd(ev) {
+  ev.preventDefault();
+}
+
+function touchMove(ev) {
+  ev.preventDefault();
+  var touch = ev.touches[0];
+  var data = ev.dataTransfer.getData("text");
+  var target = document.getElementById(data);
+  target.style.position = "absolute";
+  target.style.left = touch.pageX + "px";
+  target.style.top = touch.pageY + "px";
+}
+
 /////////////////////////////////////////////
     let draggedItem = null;
 
