@@ -95,6 +95,8 @@ Route::get('/generate-pdf', function () {
 
 
 Route::get('/ticket',[TicketController::class, 'index']);
+Route::post('/ticket',[TicketController::class, 'store'])->name('ticket');
+Route::get('/siteticket',[TicketController::class, 'show'])->name('siteticket');
 
 
 

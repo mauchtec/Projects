@@ -32,6 +32,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{asset('js/custom.js')}}"></script>
 <script src="{{asset('js/webcam.js')}}"></script>
+<script src="{{asset('js/ticket.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
 
 <style>

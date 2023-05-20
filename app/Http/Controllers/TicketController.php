@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Site;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -21,7 +24,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+      
     }
 
     /**
@@ -29,15 +32,38 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'sitename'=>'required',
+            'priority'=>'required',
+            'status'=>'required',
+            'technician'=>'required',
+            'description'=>'required',
+        ]);
+
+        $ticket = new Ticket();
+        $ticket->sitename = $request->sitename;
+        $ticket->description = $request->description;
+        $ticket->technician = $request->technician;
+        $ticket->priority= $request->priority;
+        $ticket->status =$request->status;
+        $ticket->user_id = auth()->id();
+        $ticket->save();
+     
+    return redirect()->back()->with('success', 'Ticket saved successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        
+        $getsite = $request->input('value');
+        $sitetickets = DB::table('tickets')
+        ->where('sitename', 'LIKE', '%'.$getsite.'%')
+        ->get();
+        //dd($sitetickets);
+        return response()->json($sitetickets);
     }
 
     /**
