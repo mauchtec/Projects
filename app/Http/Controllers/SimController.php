@@ -37,6 +37,7 @@ class SimController extends Controller
      */
     public function store(Request $request)
     {
+       
         $imageName = null;
     
         if ($request->hasFile('imaged')) {

@@ -16,7 +16,7 @@ class TicketController extends Controller
     public function index()
     {
         $Sitenames = Site::pluck('sitename');
-        return view('tickets.index',['Sitenames'=>$Sitenames]);
+        return view('tickets.indexi',['Sitenames'=>$Sitenames]);
     }
 
     /**
@@ -32,6 +32,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $this->validate($request,[
             'sitename'=>'required',
             'priority'=>'required',

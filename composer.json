@@ -11,10 +11,11 @@
         "barryvdh/laravel-snappy": "^1.0",
         "doctrine/dbal": "^3.6",
         "dompdf/dompdf": "^2.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "moneyphp/money": "^4.1",
         "tecnickcom/tcpdf": "^6.6"
     },
     "require-dev": {
@@ -67,6 +68,43 @@
             "php-http/discovery": true
         }
     },
+
+
+
+
+    "keys": {
+        "maps": "QfJUWNjfB26COG6rWaaosseS70bHHXJE",
+        "routing": "QfJUWNjfB26COG6rWaaosseS70bHHXJE",
+        "search": "QfJUWNjfB26COG6rWaaosseS70bHHXJE",
+        "trafficIncidents": "QfJUWNjfB26COG6rWaaosseS70bHHXJE",
+        "trafficFlow": "QfJUWNjfB26COG6rWaaosseS70bHHXJE",
+        "extendedSearch": "QfJUWNjfB26COG6rWaaosseS70bHHXJE"
+    },
+    "cdn": {
+        "web-sdk-maps": "https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps",
+        "web-sdk-services": "https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/services",
+        "web-sdk-plugin-searchbox": "https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0/",
+        "web-sdk-plugin-pancontrols": "https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/PanControls/2.1.6/",
+        "web-sdk-plugin-zoomcontrols": "https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/ZoomControls/2.1.6/",
+        "web-sdk-plugin-drawingtools": "https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/DrawingTools/1.1.5/",
+        "web-sdk-plugin-minimap": "https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/Minimap/2.1.6/"
+    },
+    "styles": {
+        "custom.incidents.markers.style": "${publicUrl}/pages/examples/assets/style/custom_incidents_style.json",
+        "custom.incidents.markers.sprite": "${publicUrl}/pages/examples/assets/style/custom_incidents_sprite"
+    },
+    "productInfo": {
+        "name": "<your product name>",
+        "version": "<your product version>"
+    },
+
+
+
     "minimum-stability": "stable",
     "prefer-stable": true
+
+
+
+
+    
 }

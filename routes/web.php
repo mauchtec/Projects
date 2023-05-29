@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\JobcardController;
 
+use App\Http\Controllers\DistanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -97,6 +98,14 @@ Route::get('/generate-pdf', function () {
 Route::get('/ticket',[TicketController::class, 'index']);
 Route::post('/ticket',[TicketController::class, 'store'])->name('ticket');
 Route::get('/siteticket',[TicketController::class, 'show'])->name('siteticket');
+
+///
+
+Route::get('/calculate-distance', [DistanceController::class, 'calculateDistance']);
+Route::get('/map', [DistanceController::class, 'index']);
+Route::post('/map', [DistanceController::class, 'store'])->name('map');
+Route::post('/receipt', [DistanceController::class, 'receipt'])->name('receipt');
+
 
 
 

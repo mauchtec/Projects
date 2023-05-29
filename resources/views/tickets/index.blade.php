@@ -382,6 +382,8 @@ table.table .avatar {
 </div>
 </div>
 </div>
+
+
 <!-- Add New ticket Modal HTML -->
 <div id="addTicketModal" class="modal fade">
 <div class="modal-dialog">

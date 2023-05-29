@@ -8,10 +8,15 @@
 <title>Bootstrap All in One Navbar</title>
 <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
+<script data-showable type='text/javascript' src="{{asset('js/mobile-or-tablet.js')}}"></script>
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+<link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css'>
+<link rel='stylesheet' type='text/css' href='css/index.css'/>
+<link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox.css'/>
+<link rel='stylesheet' type='text/css' href='css/routing.css'/>
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -237,6 +242,15 @@ body {
 		
 				<a href="{{'/jobcard'}}" class="nav-item nav-link">JobCard</a>
 				<a href="{{'/ticket'}}" class="nav-item nav-link">Ticket</a>
+				<div class="nav-item dropdown">
+					<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
+					<div class="dropdown-menu">					
+						<a href="{{'/map'}}" class="dropdown-item">Travel Log</a>
+						<a href="#" class="dropdown-item">Purchases</a>
+						<a href="#" class="dropdown-item">Expense Report</a>
+						
+					</div>
+				</div>
 			</div>
 			<form class="navbar-form form-inline ml-auto">
 				<div class="input-group search-box">
