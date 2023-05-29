@@ -25,7 +25,7 @@ class DistanceController extends Controller
         Return view('travellogs.index',[ 'currentMonthData'=>$currentMonthData,'totalAmount'=>$totalAmount]);
     }
     public function store(Request $request){
-        
+        dd($request);
  $distance = $request->kms;
  $numericDistance = floatval($distance);
    

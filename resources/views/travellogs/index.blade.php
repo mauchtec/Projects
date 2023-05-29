@@ -232,7 +232,7 @@ table.table td i {
                 
                 <span class="material-icons route">route </span>
                 <div id='reasonbox' class='tt-form-label searchbox pt-2' >
-                    <input type="text" name="kms" id="kms"  class="form-control tt-search-box-input" placeholder="Distance" disabled>
+                    <input type="text" name="kms" id="kms"  class="form-control tt-search-box-input" placeholder="Distance" readonly>
                 </div>
                 
             </div>
