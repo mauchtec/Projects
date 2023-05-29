@@ -623,10 +623,17 @@ body {
     height: 100vh;
     justify-content: space-between;
     overflow: visible;
-    margin: 0;
+    margin: 10px;
     width: 550px;
     z-index: 1;
 }
+@media (max-width: 767px) {
+    .tt-side-panel {
+      width: 2000%;
+      margin: 10px;
+    }
+  }
+  
 
 .tt-side-panel.-folded {
         display: none;
