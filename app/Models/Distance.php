@@ -17,6 +17,7 @@ class Distance extends Model
         'kms',
         'reciept',
         'amount',
+        'dates',
 
     ];
 }

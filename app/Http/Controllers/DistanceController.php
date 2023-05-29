@@ -12,12 +12,12 @@ class DistanceController extends Controller
 {
     public function index(){
         $currentMonthData = Distance::where('user_id', auth()->id())
-                            ->whereMonth('created_at', '=', date('m'))
+                            ->whereMonth('dates', '=', date('m'))
                             ->orderBy('id', 'desc')
                             ->paginate(2);
                             $currentMonth = Carbon::now()->month;
                             $totalAmount = DB::table('distances')
-                                ->whereMonth('created_at', $currentMonth)
+                                ->whereMonth('dates', $currentMonth)
                                ->where('user_id', auth()->id())
                                 ->sum('amount');
                         
@@ -35,6 +35,7 @@ class DistanceController extends Controller
             'startSearchBoxInput'=>'required',
             'finishSearchBoxInput'=>'required',
             'kms'=>'required',
+            'datet'=>'required|date',
             'reason'=>'required',
                        
         ]);
@@ -45,6 +46,7 @@ class DistanceController extends Controller
         $distance->from_place = $request->startSearchBoxInput;
         $distance->to_place =$request->finishSearchBoxInput;
         $distance->reason=$request->reason;
+        $distance->dates=$request->datet;
         $distance->kms = $numericDistance;
         $distance->transaction_type = 'Fuel';
         $distance->amount = $numericDistance*3.20;
@@ -67,6 +69,7 @@ class DistanceController extends Controller
             $receipt = New Distance();
             $receipt->user_id = auth()->id();
             $receipt->reason=$request->reason;
+            $receipt->dates=$request->datet;
             $receipt->transaction_type = 'Purchase';
             $receipt->amount=$request->amount;
             $receipt->reciept=$imageName;

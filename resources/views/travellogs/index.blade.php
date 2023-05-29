@@ -229,11 +229,26 @@ table.table td i {
         @enderror
              
             <div class="searchbox-wrapper form-group">
-                
-                <span class="material-icons route">route </span>
-                <div id='reasonbox' class='tt-form-label searchbox pt-2' >
-                    <input type="text" name="kms" id="kms"  class="form-control tt-search-box-input" placeholder="Distance" readonly>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group">
+                           
+                            <div id="reasonbox" class="tt-form-label searchbox pt-2">
+                                <input type="text" name="kms" id="kms" class="form-control tt-search-box-input" placeholder="Distance" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group">
+                            
+                            <div id="reasonbox" class="tt-form-label searchbox pt-2">
+                                <input type="date" name="datet" id="datet" class="form-control tt-search-box-input" placeholder="Date" >
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                
                 
             </div>
             @error('kms')
@@ -308,13 +323,13 @@ table.table td i {
                         @foreach ($currentMonthData as $data )
                         @if ($data->transaction_type == 'Purchase')
                         <tr>
-                           
-                            <td>{{$data->transaction_type}}</td>
-                            <td>{{$data->transaction_type}} </td>
-                            <td>{{$data->transaction_type}}</td>
-                            <td>{{$data->transaction_type}}</td>
-                            <td>{{$data->reason}}</td>
-                            <td><b>R</b> {{$data->amount}}</td>
+                            <small><td>{{$data->transaction_type}}</td></small>
+                            <small><td>{{$data->transaction_type}} </td></small>
+                            <small><td>{{$data->transaction_type}}</td></small>
+                            <small><td>{{$data->transaction_type}}</td></small>
+                            <small><td>{{$data->reason}}</td></small>
+                            
+                            <td><b>R</b><small>{{$data->amount}}</small> </td>
                             <td>
                                 <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
@@ -323,13 +338,13 @@ table.table td i {
                             
                         @else
                             <tr>
-                           
-                            <td>{{$data->from_place}}</td>
-                            <td>{{$data->to_place}} </td>
-                            <td>{{$data->transaction_type}}</td>
-                            <td>{{$data->kms}}</td>
-                            <td>{{$data->reason}}</td>
-                            <td><b>R</b> {{$data->amount}}</td>
+                           <small><td>{{$data->from_place}}</td></small>
+                            <small><td>{{$data->to_place}} </td></small>
+                            <small><td>{{$data->transaction_type}}</td></small>
+                            <small><td>{{$data->kms}}</td></small>
+                            <small><td>{{$data->reason}}</td></small>
+                            
+                            <td><b>R</b><small>{{$data->amount}}</small> </td>
                             <td>
                                 <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
