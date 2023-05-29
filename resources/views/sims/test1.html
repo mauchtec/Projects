@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hidden Form</title>
+    <style>
+        .form-container {
+            position: fixed;
+            left: -300px; /* Hide the form by default */
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background-color: #f2f2f2;
+            transition: left 0.3s ease;
+        }
+
+        .form-container.open {
+            left: 0; /* Show the form when open class is added */
+        }
+
+        .form-content {
+            padding: 20px;
+        }
+
+        .toggle-button {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-button" onclick="toggleForm()">Toggle</div>
+    <div class="form-container" id="formContainer">
+        <div class="form-content">
+            <h2>Form</h2>
+            <form>
+              
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            var formContainer = document.getElementById('formContainer');
+            formContainer.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
