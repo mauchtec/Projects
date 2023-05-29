@@ -272,7 +272,7 @@ table.table td i {
         
     </form>
     <div class="container ">
-        <div class="table-responsive">
+        <div class="table-responsive d-none d-sm-table">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
