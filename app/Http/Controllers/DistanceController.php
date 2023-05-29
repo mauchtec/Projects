@@ -69,7 +69,7 @@ class DistanceController extends Controller
             $receipt = New Distance();
             $receipt->user_id = auth()->id();
             $receipt->reason=$request->reason;
-            $receipt->dates=$request->datet;
+            $receipt->dates=$request->dates;
             $receipt->transaction_type = 'Purchase';
             $receipt->amount=$request->amount;
             $receipt->reciept=$imageName;

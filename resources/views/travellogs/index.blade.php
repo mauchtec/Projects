@@ -396,11 +396,22 @@ table.table td i {
             </div>
         </div>
             <div class="form-group">
-              <label for="amount">Amount:</label>
-              <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" required>
-            @error('amount')
-              <div class="text-danger">{{$message}}</div>
-            @enderror
+              <div class="row">
+                <div class="col">
+                    <label for="amount">Amount:</label>
+                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" required>
+                    @error('amount')
+                        <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col">
+                    <label for="amount">Amount:</label>
+                    <input type="date" class="form-control" id="dates" name="dates"  required>
+                @error('amount')
+                    <div class="text-danger">{{$message}}</div>
+                @enderror
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="reason">Reason:</label>
