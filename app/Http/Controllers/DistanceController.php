@@ -18,6 +18,7 @@ class DistanceController extends Controller
                             $currentMonth = Carbon::now()->month;
                             $totalAmount = DB::table('distances')
                                 ->whereMonth('created_at', $currentMonth)
+                               ->where('user_id', auth()->id())
                                 ->sum('amount');
                         
         
