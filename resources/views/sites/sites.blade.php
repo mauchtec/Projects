@@ -31,12 +31,13 @@
 
 .table-responsive {
     margin: 10px 0;
+	
 }
 .table-wrapper {
 	background: #fff;
 	padding: 5px 5px;
 	border-radius: 3px;
-	min-width: 1000px;
+	min-width: auto;
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .table-title {        
@@ -198,19 +199,22 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-6">
-						<h2>Manage <b>Sites</b></h2>
+					<div class="col-sm-12 col-md-6">
+					  <h2>Manage <b>Sites</b></h2>
 					</div>
-					<div class="col-sm-6">
-						
-						<a href="#addsite" class="btn btn-success location " data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Site</span></a>
-						<a href="#deletesiteModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-						<div class="search-box   ">
-                            <i class="material-icons">&#xE8B6;</i>
-                            <input type="text" name="searchsite" id="searchsite"  class="form-control" placeholder="Search&hellip;">
-                        </div>
+					<div class="col-sm-12 col-md-6">
+					  <div class="d-flex  align-items-center">
+						<a href="#addsite" class="btn btn-success location" data-toggle="modal">
+						  <i class="material-icons">&#xE147;</i> <span>Add New Site</span>
+						</a>
+						<div class="search-box ml-sm-auto ">
+						  <i class="material-icons">&#xE8B6;</i>
+						  <input type="text" name="searchsite" id="searchsite" class="form-control" placeholder="Search&hellip;">
+						</div>
+					  </div>
 					</div>
-				</div>
+				  </div>
+				  
 			</div>
 			<table class="table table-striped table-hover table-bordered table-sm table-responsive" id="sitestable">
 				<thead class="text-white" style="background-color: #435d7d">
@@ -544,9 +548,34 @@
   <script>
 
 $(document).ready(function() {
-      $('.toggle-cell').click(function() {
-        $(this).parent().toggleClass('show-details');
+      function isMobileView() {
+        return $(window).width() <= 767;
+      }
+
+      function bindToggleClick() {
+        $('.toggle-cell').click(function() {
+          $(this).parent().toggleClass('show-details');
+        });
+      }
+
+      function unbindToggleClick() {
+        $('.toggle-cell').off('click');
+      }
+
+      function updateToggleClick() {
+        if (isMobileView()) {
+          bindToggleClick();
+        } else {
+          unbindToggleClick();
+          $('.toggle-cell').parent().removeClass('show-details');
+        }
+      }
+
+      $(window).resize(function() {
+        updateToggleClick();
       });
+
+      updateToggleClick();
     });
   </script>
 @endsection

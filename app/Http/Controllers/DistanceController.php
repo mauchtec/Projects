@@ -21,14 +21,24 @@ class DistanceController extends Controller
                                 ->whereMonth('dates', $currentMonth)
                                ->where('user_id', auth()->id())
                                 ->sum('amount');
+       
+       // dd($userTotals);
+        
+        Return view('travellogs.index',[ 'currentMonthData'=>$currentMonthData,'totalAmount'=>$totalAmount]);
+    }
+
+
+    public function dashboard(){
+        
         $userTotals = User::with('distances')
-                            ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'))
+                            ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'),DB::raw('SUM(distances.kms) as km'))
                             ->leftJoin('distances', 'users.id', '=', 'distances.user_id')
                             ->groupBy('users.id')
                             ->get();
        // dd($userTotals);
         
-        Return view('travellogs.index',['userTotals' => $userTotals],[ 'currentMonthData'=>$currentMonthData,'totalAmount'=>$totalAmount]);
+        Return view('travellogs.dashboard',['userTotals' => $userTotals]);
+
     }
     public function store(Request $request){
         //dd($request);

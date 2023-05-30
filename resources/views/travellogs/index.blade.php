@@ -301,10 +301,6 @@ table.table td i {
       <div id='map' class='full-map'></div>
         
     </form>
-    @foreach ($userTotals as $user)
-    <p>User: {{ $user->name }}</p>
-    <p>Total Amount: {{ $user->totalAmount }}</p>
-@endforeach
     <div class="container ">
         <div class="table-responsive d-none d-sm-table">
             <div class="table-wrapper">

@@ -105,6 +105,7 @@ Route::get('/siteticket',[TicketController::class, 'show'])->name('siteticket');
 
 Route::get('/calculate-distance', [DistanceController::class, 'calculateDistance']);
 Route::get('/map', [DistanceController::class, 'index']);
+Route::get('/expense-dashbord', [DistanceController::class, 'dashboard']);
 Route::post('/map', [DistanceController::class, 'store'])->name('map');
 Route::delete('map/{id}',[DistanceController::class, 'Delete']);
 
