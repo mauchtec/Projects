@@ -13,6 +13,8 @@ use App\Http\Controllers\DistanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Models\Distance;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -104,6 +106,8 @@ Route::get('/siteticket',[TicketController::class, 'show'])->name('siteticket');
 Route::get('/calculate-distance', [DistanceController::class, 'calculateDistance']);
 Route::get('/map', [DistanceController::class, 'index']);
 Route::post('/map', [DistanceController::class, 'store'])->name('map');
+Route::delete('map/{id}',[DistanceController::class, 'Delete']);
+
 Route::post('/receipt', [DistanceController::class, 'receipt'])->name('receipt');
 
 

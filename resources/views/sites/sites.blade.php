@@ -173,6 +173,22 @@
     left: 10px;
 	padding-left: 5px;
 }
+@media (max-width: 767px) {
+      table td:not(.toggle-cell),
+      table th:not(.toggle-cell) {
+        display: none;
+      }
+    }
+	
+    .toggle-details {
+      display: none;
+      background-color: #f8f8f8;
+      padding: 8px;
+    }
+
+    .show-details .toggle-details {
+      display: block;
+    }
 </style>
 <div id="message">
 	
@@ -199,7 +215,7 @@
 			<table class="table table-striped table-hover table-bordered table-sm table-responsive" id="sitestable">
 				<thead class="text-white" style="background-color: #435d7d">
 					
-						<th>Site-Name <i class="fa fa-sort"></i></th>
+						<th class="toggle-cell">Site-Name <i class="fa fa-sort"></i></th>
 						<th>Address<i class="fa fa-sort"></i></th>
 						<th>Platform</th>
 						<th>Group</th>
@@ -218,7 +234,12 @@
 
 					<tr>
 						
-						<td>{{$site->sitename }}</td>
+						<td class="toggle-cell">{{$site->sitename }}</td>
+						<td class="toggle-details">
+							<strong>Address:</strong> {{$site->siteaddress}}<br>
+							<strong>Coodinates:</strong> <a href="https://www.google.com/search?q={{$site->coodinates }}"><i class="fa fa-map-marker" aria-hidden="true"></i></i></a><br>
+							<strong>URL:</strong><a href="{{$site->link }}"><i class="fa fa-link" aria-hidden="true"></i></a>
+						  </td>
 							<td>{{$site->siteaddress}}</td>
 							<td>{{$site->platform}}</td>
 							<td>{{$site->group}}</td>
@@ -432,7 +453,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content text-dark">
 			<form id="delete-site">
-				@method('DELETE')
+				@method ('DELETE')
 				@csrf
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Employee</h4>
@@ -520,4 +541,12 @@
 	  </div>
 	</div>
   </div>
+  <script>
+
+$(document).ready(function() {
+      $('.toggle-cell').click(function() {
+        $(this).parent().toggleClass('show-details');
+      });
+    });
+  </script>
 @endsection

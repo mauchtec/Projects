@@ -208,7 +208,16 @@ table.table td i {
 
 </style>
 <div class='map-view'>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-body"></div>
+      </div>
+    
     <form class='tt-side-panel js-form' action="{{'/map'}}" method="post" enctype="multipart/form-data">
+        <div class="modal-header">
+            <button type="button" class="close d-block d-sm-none mr-auto btn btn-danger" data-toggle="modal" data-target="#addPurchaseModal" aria-label="Close">
+                Click Me to add a Purchase
+            </button>
+             </div>
         
         @csrf
         <header class='tt-side-panel__header'>
@@ -270,6 +279,12 @@ table.table td i {
                 <div class="col">
                     <div class="mobile-section"><i class="fa fa-calculator text-danger" aria-hidden="true"></i> <b class="text-danger">{{$totalAmount}}</b></div>
                 </div>
+                <div class="col">
+                    
+                    
+                                            
+                    
+                </div>
                 </div>
         </header>
         <div class='tt-tabs js-tabs' hidden='hidden' >
@@ -286,6 +301,10 @@ table.table td i {
       <div id='map' class='full-map'></div>
         
     </form>
+    @foreach ($userTotals as $user)
+    <p>User: {{ $user->name }}</p>
+    <p>Total Amount: {{ $user->totalAmount }}</p>
+@endforeach
     <div class="container ">
         <div class="table-responsive d-none d-sm-table">
             <div class="table-wrapper">
@@ -331,7 +350,7 @@ table.table td i {
                             
                             <td><b>R</b><small>{{$data->amount}}</small> </td>
                             <td>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" data-id="{{ $data->id }}"><i class="material-icons">&#xE872;</i></a>
                             </td>
                         </tr>
                         
@@ -346,7 +365,8 @@ table.table td i {
                             
                             <td><b>R</b><small>{{$data->amount}}</small> </td>
                             <td>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip" data-id="{{ $data->id }}"><i class="material-icons">&#xE872;</i></a>
+                                
                             </td>
                         </tr>
                         
@@ -714,6 +734,55 @@ table.table td i {
     }
   });
 
+  $(document).ready(function() {
+  $('.delete').click(function(e) {
+    e.preventDefault(); // Prevent the default link behavior
+
+    var mapId = $(this).data('id'); // Get the map ID from the data-id attribute
+
+    if (confirm('Are you sure you want to delete this entry?')) {
+      // Send the Ajax request
+      $.ajax({
+        url: '/map/' + mapId, // The URL for the delete route
+        type: 'DELETE',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+          // Handle the success response here
+          console.log('Delete request successful');
+          location.reload(); // Refresh the page to reflect the updated data
+          // Display a success message using Bootstrap Toast
+          showToast('Map item deleted successfully', 'success');
+        },
+        error: function(xhr) {
+          // Handle the error response here
+          console.log('Delete request failed');
+          // Display an error message using Bootstrap Toast
+          showToast('Error deleting map item', 'error');
+        }
+      });
+    }
+  });
+
+  // Function to display the Bootstrap Toast message
+  function showToast(message, type) {
+    var toast = $('.toast');
+
+    // Set the toast message and type
+    $('.toast-body').text(message);
+    toast.removeClass('bg-success bg-danger');
+    toast.addClass('bg-' + type);
+
+    // Show the toast
+    toast.toast('show');
+
+    // Hide the toast after 3 seconds
+    setTimeout(function() {
+      toast.toast('hide');
+    }, 3000);
+  }
+});
 
 </script>
 @endsection

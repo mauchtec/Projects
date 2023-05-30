@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Distance;
 use Illuminate\Http\Request;
@@ -20,10 +21,14 @@ class DistanceController extends Controller
                                 ->whereMonth('dates', $currentMonth)
                                ->where('user_id', auth()->id())
                                 ->sum('amount');
-                        
+        $userTotals = User::with('distances')
+                            ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'))
+                            ->leftJoin('distances', 'users.id', '=', 'distances.user_id')
+                            ->groupBy('users.id')
+                            ->get();
+       // dd($userTotals);
         
-        
-        Return view('travellogs.index',[ 'currentMonthData'=>$currentMonthData,'totalAmount'=>$totalAmount]);
+        Return view('travellogs.index',['userTotals' => $userTotals],[ 'currentMonthData'=>$currentMonthData,'totalAmount'=>$totalAmount]);
     }
     public function store(Request $request){
         //dd($request);
@@ -78,6 +83,19 @@ class DistanceController extends Controller
             return back()->with('success','Jobcard created successfully!');
 
         $receipt = New Distance();
+    }
+    public function Delete($id){
+     
+        // Find the map item by its ID
+        $map = Distance::findOrFail($id);
+
+        // Perform the deletion
+        $map->delete();
+
+        // Optionally, you can add a success message or redirect back
+        // after deleting the item
+        return response()->json(['success' => true]);
+        
     }
 
     public function calculateDistance()

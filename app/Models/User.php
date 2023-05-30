@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function sites(){
         return $this->hasMany(Site::class);
     }
+    public function distances()
+    {
+        return $this->hasMany(Distance::class);
+    }
 }
