@@ -31,10 +31,11 @@ class DistanceController extends Controller
     public function dashboard(){
         
         $userTotals = User::with('distances')
-                            ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'),DB::raw('SUM(distances.kms) as km'))
-                            ->leftJoin('distances', 'users.id', '=', 'distances.user_id')
-                            ->groupBy('users.id')
-                            ->get();
+        ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'), DB::raw('SUM(distances.kms) as km'), 'users.name', 'users.surname')
+        ->leftJoin('distances', 'users.id', '=', 'distances.user_id')
+        ->groupBy('users.id', 'users.name', 'users.surname')
+        ->get();
+    
        // dd($userTotals);
         
         Return view('travellogs.dashboard',['userTotals' => $userTotals]);
