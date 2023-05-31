@@ -29,16 +29,22 @@ class DistanceController extends Controller
 
 
     public function dashboard(){
-        
+        $currentMonth = Carbon::now()->format('m');
+
+        $data = DB::table('distances')
+        ->whereMonth('created_at', $currentMonth)
+        ->get();
+
+
         $userTotals = User::with('distances')
         ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'), DB::raw('SUM(distances.kms) as km'), 'users.name', 'users.surname')
         ->leftJoin('distances', 'users.id', '=', 'distances.user_id')
         ->groupBy('users.id', 'users.name', 'users.surname')
         ->get();
     
-       // dd($userTotals);
+       $Month = Carbon::now()->format('F');
         
-        Return view('travellogs.dashboard',['userTotals' => $userTotals]);
+       return view('travellogs.dashboard', compact('userTotals', 'data', 'Month'));
 
     }
     public function store(Request $request){
