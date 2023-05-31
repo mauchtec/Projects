@@ -104,12 +104,18 @@ Route::get('/siteticket',[TicketController::class, 'show'])->name('siteticket');
 ///
 
 Route::get('/calculate-distance', [DistanceController::class, 'calculateDistance']);
-Route::get('/map', [DistanceController::class, 'index']);
-Route::get('/expense-dashbord', [DistanceController::class, 'dashboard']);
-Route::post('/map', [DistanceController::class, 'store'])->name('map');
+Route::get('/map', [DistanceController::class, 'index'])
+->middleware('auth');
+Route::get('/expense-dashbord', [DistanceController::class, 'dashboard'])
+->middleware('auth');
+Route::post('/map', [DistanceController::class, 'store'])
+->middleware('auth')
+->name('map');
 Route::delete('map/{id}',[DistanceController::class, 'Delete']);
 
-Route::post('/receipt', [DistanceController::class, 'receipt'])->name('receipt');
+Route::post('/receipt', [DistanceController::class, 'receipt'])
+->middleware('auth')
+->name('receipt');
 
 
 

@@ -247,7 +247,7 @@ body {
 					<div class="dropdown-menu">					
 						<a href="{{'/map'}}" class="dropdown-item">Travel Log</a>
 						<a href="#" class="dropdown-item">Purchases</a>
-						<a href="#" class="dropdown-item">Expense Report</a>
+						<a href="{{'/expense-dashbord'}}" class="dropdown-item">Expense Report</a>
 						
 					</div>
 				</div>
