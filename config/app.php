@@ -162,7 +162,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-         
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
@@ -217,6 +217,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
        
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

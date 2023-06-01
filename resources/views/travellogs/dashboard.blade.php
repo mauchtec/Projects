@@ -153,7 +153,7 @@
               
               <h6 class="card-subtitle mb-2 text-dark">Disctance: km{{ $user->km }}</h6>
               <p class="card-text text-dark">Total Amount: R{{ $user->totalAmount }}</p>
-              <a class="text-white" href="#">Export to Excel</a>
+              <a class="text-white" href="{{ route('excel', ['id' => $user->id]) }}">Export<i class="fa fa-file-excel-o fa-3x " aria-hidden="true"></i></a>
             </div>
           </div>
         </div>

@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+
 use Carbon\Carbon;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Distance;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DistanceExport;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+
 
 class DistanceController extends Controller
 {
     public function index(){
+       
         $currentMonthData = Distance::where('user_id', auth()->id())
                             ->whereMonth('dates', '=', date('m'))
                             ->orderBy('id', 'desc')
@@ -114,6 +121,16 @@ class DistanceController extends Controller
         return response()->json(['success' => true]);
         
     }
+
+
+    public function export($id)
+{
+    
+    $userId = $id;
+    $fileName = 'distance_data.xlsx';
+
+    return Excel::stream(new DistanceExport($userId),$fileName);
+}   
 
     public function calculateDistance()
     {

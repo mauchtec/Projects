@@ -116,6 +116,14 @@ Route::delete('map/{id}',[DistanceController::class, 'Delete']);
 Route::post('/receipt', [DistanceController::class, 'receipt'])
 ->middleware('auth')
 ->name('receipt');
+Route::get('excel/{id}',[DistanceController::class, 'export'])->name('excel');
+
+
+ 
+Route::controller(DistanceController::class)->group(function(){
+    Route::get('index', 'index');    
+    Route::get('export/excel', 'export')->name('export.excel');
+});
 
 
 
