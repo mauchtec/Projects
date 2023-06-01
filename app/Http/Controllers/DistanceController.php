@@ -46,6 +46,7 @@ class DistanceController extends Controller
         $userTotals = User::with('distances')
         ->select('users.*', DB::raw('SUM(distances.amount) as totalAmount'), DB::raw('SUM(distances.kms) as km'), 'users.name', 'users.surname')
         ->leftJoin('distances', 'users.id', '=', 'distances.user_id')
+        ->whereMonth('distances.dates', '=', $currentMonth)
         ->groupBy('users.id', 'users.name', 'users.surname')
         ->get();
     
