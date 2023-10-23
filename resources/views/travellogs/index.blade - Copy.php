@@ -204,10 +204,6 @@ table.table td i {
 .add-button i {
   margin-right: 5px;
 }
-#map {
-        height: 400px;
-        width: 100%;
-      }
 
 
 </style>
@@ -225,24 +221,21 @@ table.table td i {
         
         @csrf
         <header class='tt-side-panel__header'>
-            <div>
-                <div class="input-group">
-                           
-                    <div id="reasonbox" class="tt-form-label searchbox pt-2">
-                        <input type="text" name="start" id="start" class="form-control tt-search-box-input" placeholder="Enter start address" >
-                    </div>
-                </div>
-                <div class="input-group">
-                           
-                    <div id="reasonbox" class="tt-form-label searchbox pt-2">
-                        <input type="text" name="destination" id="destination" class="form-control tt-search-box-input" placeholder="Enter destination address" >
-                    </div>
-                </div>
-                
-
+            <div class="searchbox-wrapper ">
+                <div class='tt-icon icon-spacing -start'></div>
+                <div id='startSearchBox' class='tt-form-label searchbox '></div>
                
-              </div>
-             
+            </div>
+            @error('startSearchBoxInput')
+            <div class="text-danger  errors">{{$message}}</div>
+        @enderror
+            <div class="searchbox-wrapper">
+                <div class='tt-icon icon-spacing -finish'></div>
+                <div id='finishSearchBox' class='tt-form-label searchbox'></div>
+            </div>
+            @error('finishSearchBoxInput')
+            <div class="text-danger errors">{{$message}}</div>
+        @enderror
              
             <div class="searchbox-wrapper form-group">
                 <div class="row">
@@ -250,7 +243,7 @@ table.table td i {
                         <div class="input-group">
                            
                             <div id="reasonbox" class="tt-form-label searchbox pt-2">
-                                <input type="text" name="distance" id="distance" class="form-control tt-search-box-input" placeholder="Distance" readonly>
+                                <input type="text" name="kms" id="kms" class="form-control tt-search-box-input" placeholder="Distance" readonly>
                             </div>
                         </div>
                     </div>
@@ -294,8 +287,18 @@ table.table td i {
                 </div>
                 </div>
         </header>
-        <div id="map"></div>
-      
+        <div class='tt-tabs js-tabs' hidden='hidden' >
+            <div class='tt-tabs__panel'>
+                <div class='tt-results-list js-results'></div>
+                <div class='js-results-loader' hidden='hidden'>
+                    <div class='loader-center'><span class='loader'></span></div>
+                </div>
+                <div class='tt-tabs__placeholder js-results-placeholder -small'>
+                    For results choose starting and destination points.
+                </div>
+            </div>
+        </div>
+      <div id='map' class='full-map'></div>
         
     </form>
     <div class="container ">
@@ -441,56 +444,341 @@ table.table td i {
     </div>
   </div>
   
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDErtDDwYgoI_L6619pr0wNeBnitQvmFb0&libraries=places&callback=initMap" async defer></script>
-  <script>
-    var map;
-    var directionsService;
-    var directionsRenderer;
-    var startAutocomplete;
-    var destinationAutocomplete;
+<script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps-web.min.js'></script>
+<script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/services/services-web.min.js'></script>
+<script type='text/javascript' src='js/mobile-or-tablet.js'></script>
+<script type='text/javascript' src='js/foldable.js'></script>
+<script type='text/javascript' src='js/formatters.js'></script>
+<script type='text/javascript' src='js/info-hint.js'></script>
+<script type='text/javascript' src='js/dom-helpers.js'></script>
+<script type='text/javascript' src='js/results-manager.js'></script>
+<script type='text/javascript' src='js/searchbox-enter-submit.js'></script>
+<script src='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.2.0//SearchBox-web.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+<script>
+    var map = tt.map({
+        key: 'QfJUWNjfB26COG6rWaaosseS70bHHXJE',
+        container: 'map',
+        dragPan: !isMobileOrTablet()
+    });
+    var routeMarkers = {}, routePoints = {}, searchBoxes = {};
+    var finishMarkerElement = createMarkerElement('finish');
+    var startMarkerElement = createMarkerElement('start');
+    var errorHint = new InfoHint('error', 'bottom-center', 5000).addTo(document.getElementById('map'));
+    var loadingHint = new InfoHint('info', 'bottom-center').addTo(document.getElementById('map'));
+    var resultsManager = new ResultsManager();
+    var detailsWrapper = document.createElement('div');
+    var summaryContent = document.createElement('div'), summaryHeader;
 
-    function initMap() {
-      // Initialize the map
-      map = new google.maps.Map(document.getElementById('map'), {
-        
-        center: {lat: -26.0322503541338, lng: 27.915369042945066}, // Default center coordinates (San Francisco)
-        zoom: 13 // Default zoom level
-      });
+    map.addControl(new tt.FullscreenControl({container: document.querySelector('body')}));
+    map.addControl(new tt.NavigationControl());
+    map.on('load', function() {
+        searchBoxes.start = createSearchBox('start');
+        searchBoxes.finish = createSearchBox('finish');
+    });
 
-      // Initialize the Directions Service and Directions Renderer
-      directionsService = new google.maps.DirectionsService();
-      directionsRenderer = new google.maps.DirectionsRenderer();
-      directionsRenderer.setMap(map);
+    function addRouteMarkers(type, point) {
+        var lngLat = point && point[type + 'Point'] || routePoints[type];
 
-      // Initialize the Autocomplete fields
-      startAutocomplete = new google.maps.places.Autocomplete(document.getElementById('start'));
-      destinationAutocomplete = new google.maps.places.Autocomplete(document.getElementById('destination'));
-
-      // Add event listener for place changed event on destination Autocomplete
-      destinationAutocomplete.addListener('place_changed', calculateDistance);
+        if (!routeMarkers[type] && routePoints[type]) {
+            routeMarkers[type] = createMarker(type, lngLat);
+        }
+        if (routeMarkers[type]) {
+            routeMarkers[type].setLngLat(routePoints[type]);
+        }
     }
 
-    function calculateDistance() {
-      var start = document.getElementById('start').value;
-      var destination = document.getElementById('destination').value;
+    function centerMap(lngLat) {
+        map.flyTo({
+            center: lngLat,
+            speed: 10,
+            zoom: 8
+        });
+    }
 
-      var request = {
-    origin: start,
-    destination: destination,
-    travelMode: 'DRIVING', // Other options: 'WALKING', 'BICYCLING', 'TRANSIT',
-    provideRouteAlternatives: true, // Request alternative routes
-  };
+    function clearMap() {
+        if (!map.getLayer('route')) {
+            return;
+        }
+        map.removeLayer('route');
+        map.removeSource('route');
+    }
 
-      directionsService.route(request, function(result, status) {
-        if (status == 'OK') {
-            directionsRenderer.setDirections(result);
-    var distanceValue = result.routes[0].legs[0].distance.value; // Distance in meters
-    document.getElementById('distance').value = distanceValue;
+    function createMarker(type, lngLat) {
+        var markerElement = type === 'start' ? startMarkerElement : finishMarkerElement;
+
+        return new tt.Marker({ draggable: true, element: markerElement })
+            .setLngLat(lngLat || routePoints[type])
+            .addTo(map)
+            .on('dragend', getDraggedMarkerPosition.bind(null, type));
+    }
+
+    function createMarkerElement(type) {
+        var element = document.createElement('div');
+        var innerElement = document.createElement('div');
+
+        element.className = 'draggable-marker';
+        innerElement.className = 'tt-icon -white -' + type;
+        element.appendChild(innerElement);
+        return element;
+    }
+
+    function createSearchBox(type) {
+        
+    var searchBox = new tt.plugins.SearchBox(tt.services, {
+        showSearchButton: false,
+        searchOptions: {
+            key: 'QfJUWNjfB26COG6rWaaosseS70bHHXJE'
+        },
+        labels: {
+            placeholder: 'Query e.g. Washington'
+        }
+    });
+
+    // Get the search box input element
+    var searchBoxInput = searchBox.getSearchBoxHTML().querySelector('.tt-search-box-input');
+
+    // Set the name and ID attributes
+    searchBoxInput.name = type + 'SearchBoxInput';
+    searchBoxInput.id = type + 'SearchBoxInput';
+
+    document.getElementById(type + 'SearchBox').appendChild(searchBox.getSearchBoxHTML());
+    searchBox.on('tomtom.searchbox.resultscleared', onResultCleared.bind(null, type));
+
+    searchBox.on('tomtom.searchbox.resultsfound', function(event) {
+        handleEnterSubmit(event, onResultSelected.bind(this), errorHint, type);
+    });
+
+    searchBox.on('tomtom.searchbox.resultselected', function(event) {
+        if (event.data && event.data.result) {
+            console.log(event.data.result.address.freeformAddress);
+            onResultSelected(event.data.result, type);
+        }
+    });
+
+    return searchBox;
+}
+
+
+    function createSummaryContent(feature) {
+        $('#kms').val(Formatters.formatAsMetricDistance(feature.lengthInMeters));
+        if (!summaryHeader) {
+            summaryHeader = DomHelpers.elementFactory('div', 'summary-header', 'Route summary');
+            summaryContent.appendChild(summaryHeader);
+        }
+        var detailsHTML =
+            '<div class="summary-details-top text-dark">Leave now</div>' +
+            '<div class="summary-details-bottom">' +
+                '<div class="summary-icon-wrapper">' +
+                    '<span class="tt-icon -car -big"></span>' +
+                '</div>' +
+                '<div class="summary-details-text">' +
+                    '<span class="summary-details-info text-dark">Distance: <b name="km" id="km"> ' +
+                        Formatters.formatAsMetricDistance(feature.lengthInMeters) +
+                    '</b></span>' +
+                    '<span class="summary-details-info -second text-dark">Arrive: <b name="trusts">' +
+                        Formatters.formatToExpandedDateTimeString(feature.arrivalTime) +
+                    '</b></span>' +
+                '</div>' +
+            '</div>';
+
+        detailsWrapper.innerHTML = detailsHTML;
+        summaryContent.appendChild(detailsWrapper);
+        return summaryContent;
+    }
+
+    function getDraggedMarkerPosition(type) {
+        var lngLat = routeMarkers[type].getLngLat();
+
+        performReverseGeocodeRequest(lngLat)
+            .then(function(response) {
+                var addresses = response.addresses[0];
+                var freeFormAddress = addresses.address.freeformAddress;
+
+                if (!freeFormAddress) {
+                    loadingHint.hide();
+                    clearMap();
+                    resultsManager.resultsNotFound();
+                    errorHint.setMessage('Address not found, please choose a different place');
+                    return;
+                }
+                searchBoxes[type]
+                    .getSearchBoxHTML()
+                    .querySelector('input.tt-search-box-input')
+                    .value = freeFormAddress;
+                var position = {
+                    lng: addresses.position.lng,
+                    lat: addresses.position.lat
+                };
+
+                updateMapView(type, position);
+            });
+    }
+
+    function handleCalculateRouteError() {
+        clearMap();
+        resultsManager.resultsNotFound();
+        errorHint.setMessage('There was a problem calculating the route');
+        loadingHint.hide();
+    }
+
+    function handleCalculateRouteResponse(response, type) {
+        var geojson = response.toGeoJson();
+        var coordinates = geojson.features[0].geometry.coordinates;
+
+        clearMap();
+        map.addLayer({
+            'id': 'route',
+            'type': 'line',
+            'source': {
+                'type': 'geojson',
+                'data': geojson
+            },
+            'paint': {
+                'line-color': '#4a90e2',
+                'line-width': 6
+            }
+        });
+        var bounds = new tt.LngLatBounds();
+        var point = {
+            startPoint: coordinates[0],
+            finishPoint: coordinates.slice(-1)[0]
+        };
+        addRouteMarkers(type, point);
+        resultsManager.success();
+        resultsManager.append(createSummaryContent(geojson.features[0].properties.summary));
+        coordinates.forEach(function(point) {
+            bounds.extend(tt.LngLat.convert(point));
+        });
+        map.fitBounds(bounds, { duration: 0, padding: 50 });
+        loadingHint.hide();
+    }
+
+    function handleDrawRoute(type) {
+        errorHint.hide();
+        loadingHint.setMessage('Loading...');
+        resultsManager.loading();
+        performCalculateRouteRequest()
+            .then(function(response) {
+                handleCalculateRouteResponse(response, type);
+            })
+            .catch(handleCalculateRouteError);
+    }
+
+    function onResultCleared(type) {
+        routePoints[type] = null;
+        if (routeMarkers[type]) {
+            routeMarkers[type].remove();
+            routeMarkers[type] = null;
+        }
+        if (shouldDisplayPlaceholder()) {
+            resultsManager.resultsNotFound();
+        }
+        if (routePoints.start || routePoints.finish) {
+            var lngLat = type === 'start' ? routePoints.finish : routePoints.start;
+            clearMap();
+            centerMap(lngLat);
+        }
+    }
+
+    function onResultSelected(result, type) {
+        var position = result.position;
+
+        updateMapView(type, position);
+    }
+
+    function performCalculateRouteRequest() {
+        return tt.services.calculateRoute({
+            key: 'QfJUWNjfB26COG6rWaaosseS70bHHXJE',
+            traffic: false,
+            locations: routePoints.start.join() + ':' + routePoints.finish.join()
+        });
+    }
+
+    function performReverseGeocodeRequest(lngLat) {
+        return tt.services.reverseGeocode({
+            key: 'QfJUWNjfB26COG6rWaaosseS70bHHXJE',
+            position: lngLat
+        });
+    }
+
+    function shouldDisplayPlaceholder() {
+        return !(routePoints.start && routePoints.finish);
+    }
+
+    function updateMapView(type, position) {
+        routePoints[type] = [position.lng, position.lat];
+        if (routePoints.start && routePoints.finish) {
+            handleDrawRoute(type);
         } else {
-          console.log('Error:', status);
+            addRouteMarkers(type);
+            centerMap(routePoints[type]);
+        }
+    }
+
+    /////////////////saving receipt////////////////////////
+
+    document.getElementById('receiptImage').addEventListener('change', function(event) {
+    var input = event.target;
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('previewImage').setAttribute('src', e.target.result);
+        document.getElementById('previewImage').style.display = 'block';
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+
+  $(document).ready(function() {
+  $('.delete').click(function(e) {
+    e.preventDefault(); // Prevent the default link behavior
+
+    var mapId = $(this).data('id'); // Get the map ID from the data-id attribute
+
+    if (confirm('Are you sure you want to delete this entry?')) {
+      // Send the Ajax request
+      $.ajax({
+        url: '/map/' + mapId, // The URL for the delete route
+        type: 'DELETE',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+          // Handle the success response here
+          console.log('Delete request successful');
+          location.reload(); // Refresh the page to reflect the updated data
+          // Display a success message using Bootstrap Toast
+          showToast('Map item deleted successfully', 'success');
+        },
+        error: function(xhr) {
+          // Handle the error response here
+          console.log('Delete request failed');
+          // Display an error message using Bootstrap Toast
+          showToast('Error deleting map item', 'error');
         }
       });
     }
-  </script>
+  });
 
+  // Function to display the Bootstrap Toast message
+  function showToast(message, type) {
+    var toast = $('.toast');
+
+    // Set the toast message and type
+    $('.toast-body').text(message);
+    toast.removeClass('bg-success bg-danger');
+    toast.addClass('bg-' + type);
+
+    // Show the toast
+    toast.toast('show');
+
+    // Hide the toast after 3 seconds
+    setTimeout(function() {
+      toast.toast('hide');
+    }, 3000);
+  }
+});
+
+</script>
 @endsection

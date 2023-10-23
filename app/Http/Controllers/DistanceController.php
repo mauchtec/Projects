@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DistanceExport;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+
 
 
 
@@ -22,7 +22,7 @@ class DistanceController extends Controller
         $currentMonthData = Distance::where('user_id', auth()->id())
                             ->whereMonth('dates', '=', date('m'))
                             ->orderBy('id', 'desc')
-                            ->paginate(2);
+                            ->paginate(10);
                             $currentMonth = Carbon::now()->month;
                             $totalAmount = DB::table('distances')
                                 ->whereMonth('dates', $currentMonth)
@@ -56,15 +56,15 @@ class DistanceController extends Controller
 
     }
     public function store(Request $request){
-        //dd($request);
- $distance = $request->kms;
- $numericDistance = floatval($distance);
+        dd($request->distance);
+ $distance = $request->distance;
+ $numericDistance = ($distance);
    
-
+dd($distance);
         $this->validate($request,[
-            'startSearchBoxInput'=>'required',
-            'finishSearchBoxInput'=>'required',
-            'kms'=>'required',
+            'start'=>'required',
+            'destination'=>'required',
+            'distance'=>'required',
             'datet'=>'required|date',
             'reason'=>'required',
                        
@@ -73,11 +73,11 @@ class DistanceController extends Controller
         
         $distance = New Distance();
         $distance->user_id = auth()->id();
-        $distance->from_place = $request->startSearchBoxInput;
-        $distance->to_place =$request->finishSearchBoxInput;
+        $distance->from_place = $request->start;
+        $distance->to_place =$request->destination;
         $distance->reason=$request->reason;
         $distance->dates=$request->datet;
-        $distance->kms = $numericDistance;
+        $distance->kms = $distance;
         $distance->transaction_type = 'Fuel';
         $distance->amount = $numericDistance*3.20;
         $distance->save();
