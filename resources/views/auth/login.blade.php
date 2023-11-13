@@ -30,11 +30,12 @@
 
     
     <form action="{{route('login')}}" method="post">
+        @csrf
         @if (session('status'))
         <div class="text-danger"> {{session('status')}}</div>
                        
     @endif
-        @csrf
+    
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username"  name="email"  required="required">
